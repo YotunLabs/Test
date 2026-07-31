@@ -20,12 +20,13 @@ opcion_elegida = st.selectbox(
 )
 
 st.markdown("---")
+
 # ==============================================================================
 # CONTENEDOR GENERAL: EQUIPO LOCAL
 # ==============================================================================
 with st.container():
     # Nombre del equipo (Usamos st.header para que se vea grande)
-    st.subheader("Washington Nationals - Local")
+    st.subheader("🔵 Washington Nationals - Local")
     
     # --- Subcontenedor 1 (7 columnas) ---
     st.subheader("**Hits**")
@@ -36,72 +37,17 @@ with st.container():
     l_c2.write("**Hoy**")
     l_c3.write("**Momio**")
     l_c4.write("**Px**")
-    l_c5.write("**Sug**")
+    l_c5.write("**Sug.**")
     l_c6.write("**Ganancia**")
     l_c7.write("**Ingresar**")
     
     # Datos del Subcontenedor 1
-    l_c1.write("6-5-6-4-2")
+    l_c1.write("6-5-4-3-2")
     l_c2.write("+7.5")
     l_c3.write("-120")
-    l_c4.write("56%")
+    l_c4.write("65%")
     l_c5.write("$15.00")
-    l_c6.write("$25.65")
-    l_c7.button("Apostar", key="btn_loc_1")
-    
-    st.write("") # Espacio en blanco para separar
-    
-    # --- Subcontenedor 2 (7 columnas) ---
-    st.subheader("**Carreras **")
-    l_d1, l_d2, l_d3, l_d4, l_d5, l_d6, l_d7 = st.columns(7)
-    
-    # Encabezados del Subcontenedor 2
-    l_d1.write("**Col 1**")
-    l_d2.write("**Col 2**")
-    l_d3.write("**Col 3**")
-    l_d4.write("**Col 4**")
-    l_d5.write("**Col 5**")
-    l_d6.write("**Col 6**")
-    l_d7.write("**Col 7**")
-    
-    # Datos del Subcontenedor 2
-    l_d1.write("Valor 1")
-    l_d2.write("Valor 2")
-    l_d3.write("Valor 3")
-    l_d4.write("Valor 4")
-    l_d5.write("Valor 5")
-    l_d6.write("Valor 6")
-    l_d7.button("Apostar", key="btn_loc_2")
-
-st.markdown("---") # Línea divisoria entre equipos
-
-# ==============================================================================
-# CONTENEDOR GENERAL: EQUIPO VISITANTE
-# ==============================================================================
-with st.container():
-    # Nombre del equipo (Usamos st.header para que se vea grande)
-    st.subheader("Miami Marlins - Visitante")
-    
-    # --- Subcontenedor 1 (7 columnas) ---
-    st.subheader("**Hits**")
-    l_c1, l_c2, l_c3, l_c4, l_c5, l_c6, l_c7 = st.columns(7)
-    
-    # Encabezados del Subcontenedor 1
-    l_c1.write("**Hits**")
-    l_c2.write("**Hoy**")
-    l_c3.write("**Momio**")
-    l_c4.write("**Px**")
-    l_c5.write("**Sug**")
-    l_c6.write("**Ganancia**")
-    l_c7.write("**Ingresar**")
-    
-    # Datos del Subcontenedor 1
-    l_c1.write("6-5-6-4-2")
-    l_c2.write("+7.5")
-    l_c3.write("-120")
-    l_c4.write("56%")
-    l_c5.write("$15.00")
-    l_c6.write("$25.65")
+    l_c6.write("$25.89")
     l_c7.button("Apostar", key="btn_loc_1")
     
     st.write("") # Espacio en blanco para separar
@@ -111,22 +57,77 @@ with st.container():
     l_d1, l_d2, l_d3, l_d4, l_d5, l_d6, l_d7 = st.columns(7)
     
     # Encabezados del Subcontenedor 2
-    l_d1.write("**Col 1**")
-    l_d2.write("**Col 2**")
-    l_d3.write("**Col 3**")
-    l_d4.write("**Col 4**")
-    l_d5.write("**Col 5**")
-    l_d6.write("**Col 6**")
-    l_d7.write("**Col 7**")
+    l_d1.write("**Carreras**")
+    l_d2.write("**Hoy**")
+    l_d3.write("**Momio**")
+    l_d4.write("**Px**")
+    l_d5.write("**Sug.**")
+    l_d6.write("**Ganancia**")
+    l_d7.write("**Ingresar**")
     
     # Datos del Subcontenedor 2
-    l_d1.write("Valor 1")
-    l_d2.write("Valor 2")
-    l_d3.write("Valor 3")
-    l_d4.write("Valor 4")
-    l_d5.write("Valor 5")
-    l_d6.write("Valor 6")
+    l_d1.write("10-9-4-5-4")
+    l_d2.write("+4.5")
+    l_d3.write("120")
+    l_d4.write("45%")
+    l_d5.write("$15.00")
+    l_d6.write("$25.00")
     l_d7.button("Apostar", key="btn_loc_2")
+
+st.markdown("---") # Línea divisoria entre equipos
+
+# ==============================================================================
+# CONTENEDOR GENERAL: EQUIPO VISITANTE
+# ==============================================================================
+with st.container():
+    # Nombre del equipo
+    st.header("🔴 Equipo Visitante: Atlanta Braves")
+    
+    # --- Subcontenedor 1 (7 columnas) ---
+    st.markdown("**Bloque 1: Estadísticas de Hits (Ejemplo)**")
+    v_c1, v_c2, v_c3, v_c4, v_c5, v_c6, v_c7 = st.columns(7)
+    
+    # Encabezados del Subcontenedor 1
+    v_c1.write("**Col 1**")
+    v_c2.write("**Col 2**")
+    v_c3.write("**Col 3**")
+    v_c4.write("**Col 4**")
+    v_c5.write("**Col 5**")
+    v_c6.write("**Col 6**")
+    v_c7.write("**Col 7**")
+    
+    # Datos del Subcontenedor 1
+    v_c1.write("Dato V1")
+    v_c2.write("Dato V2")
+    v_c3.write("Dato V3")
+    v_c4.write("Dato V4")
+    v_c5.write("Dato V5")
+    v_c6.write("Dato V6")
+    v_c7.button("Acción", key="btn_vis_1")
+    
+    st.write("") # Espacio en blanco
+    
+    # --- Subcontenedor 2 (7 columnas) ---
+    st.markdown("**Bloque 2: Proyección de Bases/Carreras (Ejemplo)**")
+    v_d1, v_d2, v_d3, v_d4, v_d5, v_d6, v_d7 = st.columns(7)
+    
+    # Encabezados del Subcontenedor 2
+    v_d1.write("**Col 1**")
+    v_d2.write("**Col 2**")
+    v_d3.write("**Col 3**")
+    v_d4.write("**Col 4**")
+    v_d5.write("**Col 5**")
+    v_d6.write("**Col 6**")
+    v_d7.write("**Col 7**")
+    
+    # Datos del Subcontenedor 2
+    v_d1.write("Valor 1")
+    v_d2.write("Valor 2")
+    v_d3.write("Valor 3")
+    v_d4.write("Valor 4")
+    v_d5.write("Valor 5")
+    v_d6.write("Valor 6")
+    v_d7.button("Acción", key="btn_vis_2")
 
 st.markdown("---")
 # ==========================================
