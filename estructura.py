@@ -199,7 +199,4 @@ with st.expander("Tommy White (Athletics) | batter_hits_alternate > 0.5 | Prob: 
     # Llenado de la Columna 5 (Botón)
     with d5:
         st.write("Retorno: $14.30")
-        # El parámetro 'key' es obligatorio y debe ser único para cada botón en Streamlit
-        st.button("Ejecutar Apuesta", key="btn_ejemplo_1")
-
-    col9.button("Apostar", key="btn_h2h_local")
+ 
