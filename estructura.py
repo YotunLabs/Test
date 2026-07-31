@@ -25,34 +25,34 @@ st.markdown("---")
 # ==============================================================================
 with st.container():
     # Nombre del equipo (Usamos st.header para que se vea grande)
-    st.header("🔵 Equipo Local: Washington Nationals")
+    st.header("Washington Nationals - Local")
     
     # --- Subcontenedor 1 (7 columnas) ---
-    st.markdown("**Bloque 1: Estadísticas de Hits (Ejemplo)**")
+    st.subheader("**Hits**")
     l_c1, l_c2, l_c3, l_c4, l_c5, l_c6, l_c7 = st.columns(7)
     
     # Encabezados del Subcontenedor 1
-    l_c1.write("**Col 1**")
-    l_c2.write("**Col 2**")
-    l_c3.write("**Col 3**")
-    l_c4.write("**Col 4**")
-    l_c5.write("**Col 5**")
-    l_c6.write("**Col 6**")
-    l_c7.write("**Col 7**")
+    l_c1.write("**Hits**")
+    l_c2.write("**Hoy**")
+    l_c3.write("**Momio**")
+    l_c4.write("**Px**")
+    l_c5.write("**Sug**")
+    l_c6.write("**Ganancia**")
+    l_c7.write("**Ingresar**")
     
     # Datos del Subcontenedor 1
-    l_c1.write("Dato L1")
-    l_c2.write("Dato L2")
-    l_c3.write("Dato L3")
-    l_c4.write("Dato L4")
-    l_c5.write("Dato L5")
-    l_c6.write("Dato L6")
-    l_c7.button("Acción", key="btn_loc_1")
+    l_c1.write("6-5-6-4-2")
+    l_c2.write("+7.5")
+    l_c3.write("-120")
+    l_c4.write("56%")
+    l_c5.write("$15.00")
+    l_c6.write("$25.65")
+    l_c7.button("Apostar", key="btn_loc_1")
     
     st.write("") # Espacio en blanco para separar
     
     # --- Subcontenedor 2 (7 columnas) ---
-    st.markdown("**Bloque 2: Proyección de Bases/Carreras (Ejemplo)**")
+    st.markdown("**Carreras **")
     l_d1, l_d2, l_d3, l_d4, l_d5, l_d6, l_d7 = st.columns(7)
     
     # Encabezados del Subcontenedor 2
