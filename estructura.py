@@ -21,45 +21,6 @@ opcion_elegida = st.selectbox(
 )
 
 st.markdown("---")
-
-# ==========================================
-# 3. CONTENEDORES DESPLEGABLES (EXPANDERS)
-# ==========================================
-st.subheader("🎯 Tarjetas de Jugadores (Ejemplo de su captura)")
-
-# El texto que va dentro de los paréntesis de st.expander es lo que se ve ANTES de dar clic
-with st.expander("Tommy White (Athletics) | batter_hits_alternate > 0.5 | Prob: 74.4%"):
-    
-    # Aquí definimos las columnas. Los números son proporciones de ancho.
-    # Usamos 5 columnas para replicar los 5 bloques de su imagen.
-    c1, c2, c3, c4, c5 = st.columns([1.5, 1.5, 1, 1, 1.2])
-    
-    # Llenado de la Columna 1
-    with c1:
-        st.write("Racha Reciente")
-        st.subheader("1-0-2-0-4")
-        
-    # Llenado de la Columna 2
-    with c2:
-        st.write("Probabilidad Modelo")
-        st.subheader("74.4%")
-        
-    # Llenado de la Columna 3
-    with c3:
-        st.write("Cuota Casino")
-        st.subheader("1.43")
-        
-    # Llenado de la Columna 4
-    with c4:
-        st.write("Apuesta Kelly")
-        st.subheader("$10.00")
-        
-    # Llenado de la Columna 5 (Botón)
-    with c5:
-        st.write("Retorno: $14.30")
-        # El parámetro 'key' es obligatorio y debe ser único para cada botón en Streamlit
-        st.button("Ejecutar Apuesta", key="btn_ejemplo_1")
-
 # ==============================================================================
 # CONTENEDOR GENERAL: EQUIPO LOCAL
 # ==============================================================================
@@ -167,6 +128,45 @@ with st.container():
     v_d5.write("Valor 5")
     v_d6.write("Valor 6")
     v_d7.button("Acción", key="btn_vis_2")
+# ==========================================
+# 3. CONTENEDORES DESPLEGABLES (EXPANDERS)
+# ==========================================
+st.subheader("🎯 Tarjetas de Jugadores (Ejemplo de su captura)")
+
+# El texto que va dentro de los paréntesis de st.expander es lo que se ve ANTES de dar clic
+with st.expander("Tommy White (Athletics) | batter_hits_alternate > 0.5 | Prob: 74.4%"):
+    
+    # Aquí definimos las columnas. Los números son proporciones de ancho.
+    # Usamos 5 columnas para replicar los 5 bloques de su imagen.
+    c1, c2, c3, c4, c5 = st.columns([1.5, 1.5, 1, 1, 1.2])
+    
+    # Llenado de la Columna 1
+    with c1:
+        st.write("Racha Reciente")
+        st.subheader("1-0-2-0-4")
+        
+    # Llenado de la Columna 2
+    with c2:
+        st.write("Probabilidad Modelo")
+        st.subheader("74.4%")
+        
+    # Llenado de la Columna 3
+    with c3:
+        st.write("Cuota Casino")
+        st.subheader("1.43")
+        
+    # Llenado de la Columna 4
+    with c4:
+        st.write("Apuesta Kelly")
+        st.subheader("$10.00")
+        
+    # Llenado de la Columna 5 (Botón)
+    with c5:
+        st.write("Retorno: $14.30")
+        # El parámetro 'key' es obligatorio y debe ser único para cada botón en Streamlit
+        st.button("Ejecutar Apuesta", key="btn_ejemplo_1")
+
+
 
 # ==========================================
 # 4. EJEMPLO EXTRA: ESTRUCTURA H2H 
@@ -307,12 +307,3 @@ with st.container():
     v_d6.write("Valor 6")
     v_d7.button("Acción", key="btn_vis_2")
 
-columns = pd.MultiIndex.from_tuples([
-    ('Main Header A', 'Subheader 1'),
-    ('Main Header A', 'Subheader 2'),
-    ('Main Header B', 'Subheader 1')
-])
-
-# Create the DataFrame
-df = pd.DataFrame([[1, 2, 3], [4, 5, 6]], columns=columns)
-print(df)
