@@ -272,6 +272,7 @@ with st.expander("🔥 Parlay 2 (Agresivo) | Cuota: 4.50 | Prob: 35.2%", expande
 
 st.markdown("---") # Línea divisoria horizontal
 
+st.subheader("Parlays por partido")
 
 st.markdown("---")
 
