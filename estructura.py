@@ -287,7 +287,11 @@ with st.expander("🔥 Parlay 2 (Agresivo) | Cuota: 4.50 | Prob: 35.2%", expande
     
     # Dividimos las selecciones en columnas en lugar de lista hacia abajo
     sel1, sel2 = st.columns(2)
-    sel1.success("**Pick 1:** CJ Abrams (WSH) | Hits > 1.5 (Prob: 45%)")
+    sel1.success(
+        c1, c2, c3, = st.columns(3)
+        c1.metric(label="Inversión Sugerida", value="$25.00")
+        c2.metric(label="Retorno (Payout)", value="$112.50", delta="Rentable")
+    )
     sel2.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
 
         # Dividimos las selecciones en columnas en lugar de lista hacia abajo
