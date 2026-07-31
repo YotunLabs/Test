@@ -3,7 +3,7 @@ import streamlit as st
 # ==========================================
 # 1. TÍTULO Y DESCRIPCIÓN
 # ==========================================
-st.title("📊 Tablero de Prototipado Visual")
+st.Header("📊 Partidos de hoy")
 st.write("Esta es la descripción de la página. Aquí puede detallar el propósito del dashboard, instrucciones de uso o cualquier contexto relevante para el análisis.")
 
 st.markdown("---") # Línea divisoria horizontal
@@ -12,7 +12,7 @@ st.markdown("---") # Línea divisoria horizontal
 # 2. MENÚ DESPLEGABLE
 # ==========================================
 opcion_elegida = st.selectbox(
-    "Seleccione el Partido (Ejemplo de Menú Desplegable):",
+    st.subheader("**Seleccione Partido**"),
     [
         "Washington Nationals (L) vs Atlanta Braves (V)", 
         "Chicago Cubs (L) vs St. Louis Cardinals (V)"
@@ -26,7 +26,7 @@ st.markdown("---")
 # ==============================================================================
 with st.container():
     # Nombre del equipo (Usamos st.header para que se vea grande)
-    st.subheader("🔵 Washington Nationals - Local ✅ Px 65%")
+    st.subheader("🔵 Washington Nationals - Local ✅ Prob: 65%")
     
     # --- Subcontenedor 1 (7 columnas) ---
     st.subheader("**Hits**")
