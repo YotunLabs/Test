@@ -174,30 +174,30 @@ with st.expander("Tommy White (Athletics) | batter_hits_alternate > 0.5 | Prob: 
     
     # Aquí definimos las columnas. Los números son proporciones de ancho.
     # Usamos 5 columnas para replicar los 5 bloques de su imagen.
-    c1, c2, c3, c4, c5 = st.columns([1.5, 1.5, 1, 1, 1.2])
+    d1, d2, d3, d4, d5 = st.columns([1.5, 1.5, 1, 1, 1.2])
     
     # Llenado de la Columna 1
-    with c1:
+    with d1:
         st.write("Racha Reciente")
         st.subheader("1-0-2-0-4")
         
     # Llenado de la Columna 2
-    with c2:
+    with d2:
         st.write("Probabilidad Modelo")
         st.subheader("74.4%")
         
     # Llenado de la Columna 3
-    with c3:
+    with d3:
         st.write("Cuota Casino")
         st.subheader("1.43")
         
     # Llenado de la Columna 4
-    with c4:
+    with d4:
         st.write("Apuesta Kelly")
         st.subheader("$10.00")
         
     # Llenado de la Columna 5 (Botón)
-    with c5:
+    with d5:
         st.write("Retorno: $14.30")
         # El parámetro 'key' es obligatorio y debe ser único para cada botón en Streamlit
         st.button("Ejecutar Apuesta", key="btn_ejemplo_1")
