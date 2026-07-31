@@ -275,7 +275,7 @@ st.markdown("---") # Línea divisoria horizontal
 # ==========================================
 # 2. MENÚ DESPLEGABLE
 # ==========================================
-opcion_elegida = st.selectbox(
+opcion_elegidas = st.selectbox(
     "Seleccione un partido:", #Aquí se almacenan los partidos del día.
     [
         "Washington Nationals (L) vs Atlanta Braves (V)", 
