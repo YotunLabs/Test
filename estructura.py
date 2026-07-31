@@ -3,7 +3,7 @@ import streamlit as st
 # ==========================================
 # 1. TÍTULO Y DESCRIPCIÓN
 # ==========================================
-st.Header("📊 Partidos de hoy")
+st.header("📊 Partidos de hoy")
 st.write("Esta es la descripción de la página. Aquí puede detallar el propósito del dashboard, instrucciones de uso o cualquier contexto relevante para el análisis.")
 
 st.markdown("---") # Línea divisoria horizontal
@@ -12,7 +12,7 @@ st.markdown("---") # Línea divisoria horizontal
 # 2. MENÚ DESPLEGABLE
 # ==========================================
 opcion_elegida = st.selectbox(
-    "Seleccione un partido:",
+    st.subheader("**Seleccione un partido:**"),
     [
         "Washington Nationals (L) vs Atlanta Braves (V)", 
         "Chicago Cubs (L) vs St. Louis Cardinals (V)"
