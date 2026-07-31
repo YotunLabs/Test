@@ -12,7 +12,7 @@ st.markdown("---") # Línea divisoria horizontal
 # 2. MENÚ DESPLEGABLE
 # ==========================================
 opcion_elegida = st.selectbox(
-    st.subheader("**Seleccione un partido:**"),
+    "Seleccione un partido:",
     [
         "Washington Nationals (L) vs Atlanta Braves (V)", 
         "Chicago Cubs (L) vs St. Louis Cardinals (V)"
