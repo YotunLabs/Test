@@ -241,12 +241,12 @@ st.write("Esta es la descripción de la página. Aquí puede detallar el propós
 
 st.markdown("---") # Línea divisoria horizontal
 
-st.title("I PARLAY JUGADOR")
+st.subheader("I TOP 8 PARLAY HITS JUGADORES") #Aqui vamos calcular parlays de 3 o 4  con la mejor Prob y con EV positivo, el siguiente parlay será con los que tienen menor cantidad de prob, y el último parlay sea el soñado.
 
 # ==============================================================================
 # VARIANTE 2: ENFOQUE EN MÉTRICAS (MÁS VISUAL Y MODERNO)
 # ==============================================================================
-with st.expander("🔥 Parlay 2 (Agresivo) | Cuota: 4.50 | Prob: 35.2%", expanded=False):
+with st.expander("Parlay 2 (Agresivo) | Cuota: 4.50 | Prob: 35.2%", expanded=False):
     
     # Dividimos las selecciones en columnas en lugar de lista hacia abajo
     sel1, sel2 = st.columns(2)
@@ -272,7 +272,39 @@ with st.expander("🔥 Parlay 2 (Agresivo) | Cuota: 4.50 | Prob: 35.2%", expande
 
 st.markdown("---") # Línea divisoria horizontal
 
-st.subheader("Parlays por partido")
+st.subheader("I PARLAY BASES JUGADORES") #Aqui vamos calcular parlays de 3 o 4  con la mejor Prob y con EV positivo, el siguiente parlay será con los que tienen menor cantidad de prob, y el último parlay sea el soñado.
+
+# ==============================================================================
+# VARIANTE 2: ENFOQUE EN MÉTRICAS (MÁS VISUAL Y MODERNO)
+# ==============================================================================
+with st.expander("TOP 8 Parlay 2 (Agresivo) | Cuota: 4.50 | Prob: 35.2%", expanded=False):
+    
+    # Dividimos las selecciones en columnas en lugar de lista hacia abajo
+    sel1, sel2 = st.columns(2)
+    sel1.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+    sel2.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+
+        # Dividimos las selecciones en columnas en lugar de lista hacia abajo
+    sel3, sel4 = st.columns(2)
+    sel3.success("**Pick 1:** CJ Abrams (WSH) | Hits > 1.5 (Prob: 45%)")
+    sel4.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+    
+    st.markdown("---")
+    
+    # Usamos st.metric para números grandes y llamativos
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric(label="Inversión Sugerida", value="$25.00")
+    m2.metric(label="Retorno (Payout)", value="$112.50", delta="Rentable")
+    m3.metric(label="Ventaja (EV)", value="+18.5%", delta="EV Positivo", delta_color="normal")
+    
+    with m4:
+        st.write("")
+        st.button("Ejecutar Parlay 2", key="btn_v2", type="primary") # type="primary" lo pone de color rojo/destacado
+
+st.markdown("---") # Línea divisoria horizontal
+
+st.subheader("I PARLAY POR PARTIDO")
+st.subheader("Menú desplegable")
 
 st.markdown("---")
 
@@ -280,8 +312,7 @@ st.markdown("---")
 # PARLAY POR PARTIDO
 # ==============================================================================
 
-with st.expander("Miami Marlins vs Phillies | Cuota: 4.50 | Prob: 35.2%", expanded=False):
-    
+with st.expander("TOP 2 Miami Marlins vs Phillies | Cuota: 4.50 | Prob: 35.2%", expanded=False): #Aqui vamos calcular parlays de 2 parlays con mejor prob, mezclando hits por equipo, hits por jugador, carreras, etc.
     # Dividimos las selecciones en columnas en lugar de lista hacia abajo
     sel5, sel6 = st.columns(2)
     sel5.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
