@@ -292,23 +292,23 @@ st.markdown("---")
 with st.expander("Miami Marlins vs Phillies | Cuota: 4.50 | Prob: 35.2%", expanded=False):
     
     # Dividimos las selecciones en columnas en lugar de lista hacia abajo
-    sel1, sel2 = st.columns(2)
-    sel1.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
-    sel2.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+    sel5, sel6 = st.columns(2)
+    sel5.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+    sel6.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
 
         # Dividimos las selecciones en columnas en lugar de lista hacia abajo
-    sel3, sel4 = st.columns(2)
-    sel3.success("**Pick 1:** CJ Abrams (WSH) | Hits > 1.5 (Prob: 45%)")
-    sel4.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+    sel7, sel8 = st.columns(2)
+    sel7.success("**Pick 1:** CJ Abrams (WSH) | Hits > 1.5 (Prob: 45%)")
+    sel8.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
     
     st.markdown("---")
     
     # Usamos st.metric para números grandes y llamativos
-    m1, m2, m3, m4 = st.columns(4)
-    m1.metric(label="Inversión Sugerida", value="$25.00")
-    m2.metric(label="Retorno (Payout)", value="$112.50", delta="Rentable")
-    m3.metric(label="Ventaja (EV)", value="+18.5%", delta="EV Positivo", delta_color="normal")
+    m5, m6, m7, m8 = st.columns(4)
+    m5.metric(label="Inversión Sugerida", value="$25.00")
+    m6.metric(label="Retorno (Payout)", value="$112.50", delta="Rentable")
+    m7.metric(label="Ventaja (EV)", value="+18.5%", delta="EV Positivo", delta_color="normal")
     
-    with m4:
+    with m8:
         st.write("")
-        st.button("Ejecutar Parlay 2", key="btn_v2", type="primary") # type="primary" lo pone de color rojo/destacado
+        st.button("Ejecutar Parlay 2", key="btn_v3", type="primary") # type="primary" lo pone de color rojo/destacado
