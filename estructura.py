@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 
 # ==========================================
 # 1. TÍTULO Y DESCRIPCIÓN
