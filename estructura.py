@@ -107,7 +107,7 @@ with st.container():
     st.write("") # Espacio en blanco para separar
     
     # --- Subcontenedor 2 (7 columnas) ---
-    st.subheader("**Carreras **")
+    st.subheader("**Carreras**")
     l_d1, l_d2, l_d3, l_d4, l_d5, l_d6, l_d7 = st.columns(7)
     
     # Encabezados del Subcontenedor 2
@@ -127,6 +127,8 @@ with st.container():
     l_d5.write("Valor 5")
     l_d6.write("Valor 6")
     l_d7.button("Apostar", key="btn_loc_2")
+
+st.markdown("---")
 # ==========================================
 # 3. CONTENEDORES DESPLEGABLES (EXPANDERS)
 # ==========================================
