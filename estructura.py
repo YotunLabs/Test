@@ -12,7 +12,7 @@ st.markdown("---") # Línea divisoria horizontal
 # 2. MENÚ DESPLEGABLE
 # ==========================================
 opcion_elegida = st.selectbox(
-    "Seleccione un partido:",
+    "Seleccione un partido:", #Aquí se almacenan los partidos del día.
     [
         "Washington Nationals (L) vs Atlanta Braves (V)", 
         "Chicago Cubs (L) vs St. Louis Cardinals (V)"
@@ -25,8 +25,8 @@ st.markdown("---")
 # CONTENEDOR GENERAL: EQUIPO LOCAL
 # ==============================================================================
 with st.container():
-    # Nombre del equipo (Usamos st.header para que se vea grande)
-    st.subheader("🔵 Washington Nationals - Local ✅ Prob: 65%")
+    # Nombre del equipo (Usamos st.header para que se vea grande) 
+    st.subheader("🔵 Washington Nationals - Local ✅ Prob: 65%") #Probabilidad de ganar local o visitante, utilicemos un modelo que nos permita calcular la probabilidad de ganar con base en el historico de la MLB y los momios del casino-
     
     # --- Subcontenedor 1 (7 columnas) ---
     st.subheader("**Hits**")
@@ -38,16 +38,16 @@ with st.container():
     l_c3.write("**Momio**")
     l_c4.write("**Px**")
     l_c5.write("**Sug.**")
-    l_c6.write("**Ganancia**")
+    l_c6.write("**Retorno**")
     l_c7.write("**Ingresar**")
     
     # Datos del Subcontenedor 1
-    l_c1.write("6-5-4-3-2")
-    l_c2.write("+7.5")
-    l_c3.write("-120")
-    l_c4.write("65%")
-    l_c5.write("$15.00")
-    l_c6.write("$25.89")
+    l_c1.write("6-5-4-3-2") # Historico de los ultimos 5 juegos del equipo con hits realizados.
+    l_c2.write("+7.5") # Hits esperados para este partido podemos hacer el calculo con los hits realizados en historicos, los momios del casino y lanzadores. y determinar la probailidad si es over/under.
+    l_c3.write("-120") #Momio del casino
+    l_c4.write("65%") #Probabilidad de logar la meta ya sea over/under
+    l_c5.write("$15.00") #Calculo Kelly
+    l_c6.write("$25.89") #Calculo kelly con el momio extraido.
     l_c7.button("Apuesta", key="btn_loc_1")
     
     st.write("") # Espacio en blanco para separar
@@ -62,7 +62,7 @@ with st.container():
     l_d3.write("**Momio**")
     l_d4.write("**Px**")
     l_d5.write("**Sug.**")
-    l_d6.write("**Ganancia**")
+    l_d6.write("**Retorno**")
     l_d7.write("**Ingresar**")
     
     # Datos del Subcontenedor 2
@@ -93,7 +93,7 @@ with st.container():
     v_c3.write("**Momio**")
     v_c4.write("**Px**")
     v_c5.write("**Sug.**")
-    v_c6.write("**Ganancia**")
+    v_c6.write("**Retorno**")
     v_c7.write("**Ingresar**")
     
     # Datos del Subcontenedor 1
@@ -117,7 +117,7 @@ with st.container():
     v_d3.write("**Momio**")
     v_d4.write("**Px**")
     v_d5.write("**Sug.**")
-    v_d6.write("**Ganancia**")
+    v_d6.write("**Retorno**")
     v_d7.write("**Ingresar**")
     
     # Datos del Subcontenedor 2
@@ -133,10 +133,10 @@ st.markdown("---")
 # ==========================================
 # 3. CONTENEDORES DESPLEGABLES (EXPANDERS)
 # ==========================================
-st.subheader("🎯 Tarjetas de Jugadores (Ejemplo de su captura)")
+st.write("🎯 Hits jugadores")
 
-# El texto que va dentro de los paréntesis de st.expander es lo que se ve ANTES de dar clic
-with st.expander("Tommy White (Athletics) | batter_hits_alternate > 0.5 | ✅ Prob: 74.4%"):
+# Vaciamos hits 
+with st.expander("Tommy White (Athletics) | batter_hits > 0.5 | ✅ Prob: 74.4%"): #Agregamos el indicador de que esta apuesta tiene altas probabilidades de lograrse y es rentable.
     
     # Aquí definimos las columnas. Los números son proporciones de ancho.
     # Usamos 5 columnas para replicar los 5 bloques de su imagen.
@@ -144,32 +144,33 @@ with st.expander("Tommy White (Athletics) | batter_hits_alternate > 0.5 | ✅ Pr
     
     # Llenado de la Columna 1
     with c1:
-        st.write("Racha Reciente")
+        st.write("Racha Reciente") #Racha de los últimos 5 juegos
         st.subheader("1-0-2-0-4")
         
     # Llenado de la Columna 2
     with c2:
-        st.write("Probabilidad Modelo")
+        st.write("Probabilidad Modelo") #Calculamos la probabilidad de lograr con base en el historico, racha, momio del casino y los lanzadores-
         st.subheader("74.4%")
         
     # Llenado de la Columna 3
     with c3:
-        st.write("Cuota Casino")
+        st.write("Cuota Casino") #Indicamos la cuota del casino
         st.subheader("1.43")
         
     # Llenado de la Columna 4
     with c4:
-        st.write("Apuesta Kelly")
+        st.write("Sug.") #Calculo Kelly
         st.subheader("$10.00")
         
     # Llenado de la Columna 5 (Botón)
     with c5:
-        st.write("Retorno: $14.30")
+        st.write("Retorno: $14.30") #GAnancia
         # El parámetro 'key' es obligatorio y debe ser único para cada botón en Streamlit
         st.button("Ejecutar Apuesta", key="btn_ejemplo_1")
-    
-# El texto que va dentro de los paréntesis de st.expander es lo que se ve ANTES de dar clic
-with st.expander("Tommy White (Athletics) | batter_hits_alternate > 0.5 | Prob: 74.4%"):
+        
+st.write("🎯 Bases jugadores")    
+# Vachiamos Bases
+with st.expander("Tommy White (Athletics) | batter_bases > 0.5 | Prob: 74.4%"):
     
     # Aquí definimos las columnas. Los números son proporciones de ancho.
     # Usamos 5 columnas para replicar los 5 bloques de su imagen.
@@ -200,3 +201,37 @@ with st.expander("Tommy White (Athletics) | batter_hits_alternate > 0.5 | Prob: 
         st.write("Retorno: $14.30")
         # El parámetro 'key' es obligatorio y debe ser único para cada botón en Streamlit
         st.button("Ejecutar Apuesta", key="btn_ejemplo_2")
+
+st.write("🎯 HomeRun Jugadores)")
+# Vaciamos HR
+with st.expander("Tommy White (Athletics) | HomeRuns > 0.5 | Prob: 74.4%"):
+    
+    # Aquí definimos las columnas. Los números son proporciones de ancho.
+    # Usamos 5 columnas para replicar los 5 bloques de su imagen.
+    f1, f2, f3, f4, f5 = st.columns([1.5, 1.5, 1, 1, 1.2])
+    
+    # Llenado de la Columna 1
+    with f1:
+        st.write("Racha Reciente")
+        st.subheader("1-0-2-0-4")
+        
+    # Llenado de la Columna 2
+    with f2:
+        st.write("Probabilidad Modelo")
+        st.subheader("74.4%")
+        
+    # Llenado de la Columna 3
+    with f3:
+        st.write("Cuota Casino")
+        st.subheader("1.43")
+        
+    # Llenado de la Columna 4
+    with f4:
+        st.write("Apuesta Kelly")
+        st.subheader("$10.00")
+        
+    # Llenado de la Columna 5 (Botón)
+    with f5:
+        st.write("Retorno: $14.30")
+        # El parámetro 'key' es obligatorio y debe ser único para cada botón en Streamlit
+        st.button("Ejecutar Apuesta", key="btn_ejemplo_3")
