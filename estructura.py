@@ -241,57 +241,16 @@ st.write("Esta es la descripción de la página. Aquí puede detallar el propós
 
 st.markdown("---") # Línea divisoria horizontal
 
-st.title("I PARLAY JUGADOR (Recomendaciones IA)")
-
-# ==============================================================================
-# VARIANTE 1: RÉPLICA EXACTA DE LA IMAGEN
-# ==============================================================================
-st.subheader("Variante 1: Diseño Clásico (Réplica)")
-
-with st.expander("Parlay 1 (Conservador - Alta Probabilidad) | Cuota: 2.03 | Prob Ajustada: 63.7% | EV: +29.4%", expanded=True):
-    
-    st.markdown("🟢 Correlación Ofensiva Aplicada (+15% a la Probabilidad)")
-    st.markdown("**Desglose de Selecciones:**")
-    
-    st.markdown("• **Tommy White** (Athletics) | batter_hits > 0.5 *(Prob Individual: 74.4%)*")
-    st.markdown("• **Tommy White** (Athletics) | batter_hits_alternate > 0.5 *(Prob Individual: 74.4%)*")
-    
-    st.markdown("---") # Línea divisoria
-    
-    # 4 Columnas para el pie del bloque
-    c1, c2, c3, c4 = st.columns([1, 1, 1.5, 1])
-    
-    with c1:
-        st.write("Inversión Sugerida")
-        st.subheader("$50.00")
-        
-    with c2:
-        st.write("Retorno (Payout)")
-        st.subheader("$101.53")
-        
-    with c3:
-        st.write("Evaluación Algorítmica")
-        st.subheader("Rentable")
-        st.markdown(":green[⬆ EV Positivo]")
-        
-    with c4:
-        st.write("") # Espacio para alinear el botón hacia abajo
-        st.button("Ejecutar Parlay 1", key="btn_v1")
+st.title("I PARLAY JUGADOR")
 
 # ==============================================================================
 # VARIANTE 2: ENFOQUE EN MÉTRICAS (MÁS VISUAL Y MODERNO)
 # ==============================================================================
-st.subheader("Variante 2: Estilo Dashboard Analítico")
-
 with st.expander("🔥 Parlay 2 (Agresivo) | Cuota: 4.50 | Prob: 35.2%", expanded=False):
     
     # Dividimos las selecciones en columnas en lugar de lista hacia abajo
     sel1, sel2 = st.columns(2)
-    sel1.success(
-        c1, c2, c3, = st.columns(3)
-        c1.metric(label="Inversión Sugerida", value="$25.00")
-        c2.metric(label="Retorno (Payout)", value="$112.50", delta="Rentable")
-    )
+    sel1.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
     sel2.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
 
         # Dividimos las selecciones en columnas en lugar de lista hacia abajo
@@ -311,62 +270,45 @@ with st.expander("🔥 Parlay 2 (Agresivo) | Cuota: 4.50 | Prob: 35.2%", expande
         st.write("")
         st.button("Ejecutar Parlay 2", key="btn_v2", type="primary") # type="primary" lo pone de color rojo/destacado
 
-# ==============================================================================
-# VARIANTE 3: DISEÑO COMPACTO (PANEL DIVIDIDO)
-# ==============================================================================
-st.subheader("Variante 3: Panel Dividido Izquierda/Derecha")
+st.markdown("---") # Línea divisoria horizontal
 
-with st.expander("📊 Parlay 3 (Equilibrado) | Cuota: 3.10 | EV: +15.0%", expanded=False):
-    
-    # Dividimos la caja en dos mitades principales
-    izq, der = st.columns([2, 1])
-    
-    with izq:
-        st.markdown("**🛠️ Jugadas del Ticket:**")
-        st.markdown("1. **Nico Hoerner** (CHC) | Total Bases > 0.5")
-        st.markdown("2. **Michael Busch** (CHC) | Hits > 0.5")
-        st.caption("Correlación: Bateadores consecutivos en la alineación.")
-        
-    with der:
-        st.markdown("**💰 Finanzas:**")
-        st.markdown("**Apuesta:** $40.00")
-        st.markdown("**A Ganar:** $124.00")
-        st.button("Ejecutar", key="btn_v3", use_container_width=True) # El botón ocupa todo el ancho de su columna
+# ==========================================
+# 2. MENÚ DESPLEGABLE
+# ==========================================
+opcion_elegida = st.selectbox(
+    "Seleccione un partido:", #Aquí se almacenan los partidos del día.
+    [
+        "Washington Nationals (L) vs Atlanta Braves (V)", 
+        "Chicago Cubs (L) vs St. Louis Cardinals (V)"
+    ]
+)
+
+st.markdown("---")
 
 # ==============================================================================
-# VARIANTE 4: USO DE TABLA INTERNA PARA MÁXIMA LECTURA
+# PARLAY POR PARTIDO
 # ==============================================================================
-st.subheader("Variante 4: Estructura de Tabla Estricta")
 
-with st.expander("🎯 Parlay 4 (Matemático) | Cuota: 2.85 | Prob Ajustada: 45%", expanded=False):
+with st.expander("Miami Marlins vs Phillies | Cuota: 4.50 | Prob: 35.2%", expanded=False):
     
-    st.markdown("🟢 **Ventaja Algorítmica Detectada:** Discrepancia del 12% vs Casino")
-    
-    # Fila de encabezados de la tabla
-    t_h1, t_h2, t_h3, t_h4 = st.columns([2, 2, 1, 1])
-    t_h1.write("**Jugador**")
-    t_h2.write("**Mercado**")
-    t_h3.write("**Línea**")
-    t_h4.write("**Probabilidad**")
-    
-    # Fila de Pick 1
-    t_r1c1, t_r1c2, t_r1c3, t_r1c4 = st.columns([2, 2, 1, 1])
-    t_r1c1.write("Nick Gonzales (PIT)")
-    t_r1c2.write("Bases Totales")
-    t_r1c3.write("> 1.5")
-    t_r1c4.write("58.2%")
-    
-    # Fila de Pick 2
-    t_r2c1, t_r2c2, t_r2c3, t_r2c4 = st.columns([2, 2, 1, 1])
-    t_r2c1.write("Bryan Reynolds (PIT)")
-    t_r2c2.write("Hits")
-    t_r2c3.write("> 0.5")
-    t_r2c4.write("62.1%")
+    # Dividimos las selecciones en columnas en lugar de lista hacia abajo
+    sel1, sel2 = st.columns(2)
+    sel1.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+    sel2.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+
+        # Dividimos las selecciones en columnas en lugar de lista hacia abajo
+    sel3, sel4 = st.columns(2)
+    sel3.success("**Pick 1:** CJ Abrams (WSH) | Hits > 1.5 (Prob: 45%)")
+    sel4.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
     
     st.markdown("---")
     
-    f1, f2, f3, f4 = st.columns([1, 1, 1, 1])
-    f1.write("**Kelly:** $35.00")
-    f2.write("**Payout:** $99.75")
-    f3.write("**Estado:** :green[Aprobado]")
-    f4.button("Ejecutar Parlay 4", key="btn_v4")
+    # Usamos st.metric para números grandes y llamativos
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric(label="Inversión Sugerida", value="$25.00")
+    m2.metric(label="Retorno (Payout)", value="$112.50", delta="Rentable")
+    m3.metric(label="Ventaja (EV)", value="+18.5%", delta="EV Positivo", delta_color="normal")
+    
+    with m4:
+        st.write("")
+        st.button("Ejecutar Parlay 2", key="btn_v2", type="primary") # type="primary" lo pone de color rojo/destacado
