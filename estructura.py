@@ -235,3 +235,9 @@ with st.expander("Tommy White (Athletics) | HomeRuns > 0.5 | Prob: 74.4%"):
         st.write("Retorno: $14.30")
         # El parámetro 'key' es obligatorio y debe ser único para cada botón en Streamlit
         st.button("Ejecutar Apuesta", key="btn_ejemplo_3")
+
+st.header("🔥 Parlays de hoy")
+st.write("Esta es la descripción de la página. Aquí puede detallar el propósito del dashboard, instrucciones de uso o cualquier contexto relevante para el análisis.")
+
+st.markdown("---") # Línea divisoria horizontal
+
