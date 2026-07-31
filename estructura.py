@@ -272,16 +272,6 @@ with st.expander("🔥 Parlay 2 (Agresivo) | Cuota: 4.50 | Prob: 35.2%", expande
 
 st.markdown("---") # Línea divisoria horizontal
 
-# ==========================================
-# 2. MENÚ DESPLEGABLE
-# ==========================================
-opcion_elegidas = st.selectbox(
-    "Seleccione un partido:", #Aquí se almacenan los partidos del día.
-    [
-        "Washington Nationals (L) vs Atlanta Braves (V)", 
-        "Chicago Cubs (L) vs St. Louis Cardinals (V)"
-    ]
-)
 
 st.markdown("---")
 
