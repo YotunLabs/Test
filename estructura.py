@@ -285,12 +285,15 @@ st.subheader("Variante 2: Estilo Dashboard Analítico")
 
 with st.expander("🔥 Parlay 2 (Agresivo) | Cuota: 4.50 | Prob: 35.2%", expanded=False):
     
-    st.info("💡 Correlación Ofensiva: Los bateadores enfrentan a un pitcher con alto índice de hits permitidos.")
-    
     # Dividimos las selecciones en columnas en lugar de lista hacia abajo
     sel1, sel2 = st.columns(2)
     sel1.success("**Pick 1:** CJ Abrams (WSH) | Hits > 1.5 (Prob: 45%)")
     sel2.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+
+        # Dividimos las selecciones en columnas en lugar de lista hacia abajo
+    sel3, sel4 = st.columns(2)
+    sel3.success("**Pick 1:** CJ Abrams (WSH) | Hits > 1.5 (Prob: 45%)")
+    sel4.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
     
     st.markdown("---")
     
