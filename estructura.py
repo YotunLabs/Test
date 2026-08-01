@@ -299,7 +299,7 @@ with st.expander("Parlay 2 (Agresivo) | Cuota: 4.50 | Prob: 35.2%", expanded=Fal
     
     with m12:
         st.write("")
-        st.button("Ejecutar Parlay 2", key="btn_v2", type="primary") # type="primary" lo pone de color rojo/destacado
+        st.button("Ejecutar Parlay 2", key="btn_v3", type="primary") # type="primary" lo pone de color rojo/destacado
 
 st.markdown("---") # Línea divisoria horizontal
 
