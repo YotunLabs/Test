@@ -308,24 +308,42 @@ st.subheader("Menú desplegable")
 
 st.markdown("---")
 
-# ==============================================================================
-# PARLAY POR PARTIDO
-# ==============================================================================
+st.subheader("I PARLAY POR PARTIDO")
+st.write("Filtre las combinaciones matemáticas exclusivas para un encuentro específico.")
 
-with st.expander("TOP 2 Miami Marlins vs Phillies | Cuota: 4.50 | Prob: 35.2%", expanded=False): #Aqui vamos calcular parlays de 2 parlays con mejor prob, mezclando hits por equipo, hits por jugador, carreras, etc.
+# ==============================================================================
+# MENÚ DESPLEGABLE (CON IDENTIFICADOR ÚNICO)
+# ==============================================================================
+partido_parlay = st.selectbox(
+    "Seleccione el partido para ver sus Parlays:",
+    [
+        "Miami Marlins (L) vs Philadelphia Phillies (V)",
+        "Washington Nationals (L) vs Atlanta Braves (V)",
+        "Chicago Cubs (L) vs St. Louis Cardinals (V)"
+    ],
+    key="selector_parlay_unico" # Este key es vital para que no choque con el menú de la pestaña En Vivo
+)
+
+st.markdown("---")
+
+# ==============================================================================
+# CONTENEDOR DEL PARLAY (EL TÍTULO SE ADAPTA AL PARTIDO SELECCIONADO)
+# ==============================================================================
+# Usamos una variable f"" para que el título del expander cambie según lo que se elija arriba
+with st.expander(f"TOP 2 {partido_parlay} | Cuota: 4.50 | Prob: 35.2%", expanded=False): 
+    
     # Dividimos las selecciones en columnas en lugar de lista hacia abajo
     sel5, sel6 = st.columns(2)
-    sel5.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+    sel5.success("**Pick 1:** CJ Abrams (WSH) | Hits > 1.5 (Prob: 45%)")
     sel6.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
 
-        # Dividimos las selecciones en columnas en lugar de lista hacia abajo
     sel7, sel8 = st.columns(2)
-    sel7.success("**Pick 1:** CJ Abrams (WSH) | Hits > 1.5 (Prob: 45%)")
-    sel8.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+    sel7.success("**Pick 3:** Luis Arraez (MIA) | Hits > 0.5 (Prob: 65%)")
+    sel8.success("**Pick 4:** Jazz Chisholm (MIA) | Bases > 0.5 (Prob: 55%)")
     
     st.markdown("---")
     
-    # Usamos st.metric para números grandes y llamativos
+    # Métricas de finanzas
     m5, m6, m7, m8 = st.columns(4)
     m5.metric(label="Inversión Sugerida", value="$25.00")
     m6.metric(label="Retorno (Payout)", value="$112.50", delta="Rentable")
@@ -333,4 +351,4 @@ with st.expander("TOP 2 Miami Marlins vs Phillies | Cuota: 4.50 | Prob: 35.2%", 
     
     with m8:
         st.write("")
-        st.button("Ejecutar Parlay 2", key="btn_v4", type="primary") # type="primary" lo pone de color rojo/destacado
+        st.button("Ejecutar Parlay", key="btn_ejecutar_parlay_partido", type="primary")
