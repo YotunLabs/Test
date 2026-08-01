@@ -333,4 +333,4 @@ with st.expander("TOP 2 Miami Marlins vs Phillies | Cuota: 4.50 | Prob: 35.2%", 
     
     with m8:
         st.write("")
-        st.button("Ejecutar Parlay 2", key="btn_v3", type="primary") # type="primary" lo pone de color rojo/destacado
+        st.button("Ejecutar Parlay 2", key="btn_v4", type="primary") # type="primary" lo pone de color rojo/destacado
