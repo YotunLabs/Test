@@ -304,11 +304,6 @@ with st.expander("Parlay 2 (Agresivo) | Cuota: 4.50 | Prob: 35.2%", expanded=Fal
 st.markdown("---") # Línea divisoria horizontal
 
 st.subheader("I PARLAY POR PARTIDO")
-st.subheader("Menú desplegable")
-
-st.markdown("---")
-
-st.subheader("I PARLAY POR PARTIDO")
 st.write("Filtre las combinaciones matemáticas exclusivas para un encuentro específico.")
 
 # ==============================================================================
