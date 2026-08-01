@@ -347,3 +347,139 @@ with st.expander(f"TOP 2 {partido_parlay} | Cuota: 4.50 | Prob: 35.2%", expanded
     with m8:
         st.write("")
         st.button("Ejecutar Parlay", key="btn_ejecutar_parlay_partido", type="primary")
+
+
+
+# ==========================================
+# 1. TÍTULO Y DESCRIPCIÓN
+# ==========================================
+st.title("📊 Partidos de hoy")
+st.write("Seleccione un encuentro para analizar las proyecciones algorítmicas de Hits y Carreras esperadas, contrastadas contra los momios del casino en tiempo real.")
+
+st.markdown("---") 
+
+# ==========================================
+# 2. MENÚ DESPLEGABLE DE PARTIDOS
+# ==========================================
+opcion_elegida = st.selectbox(
+    "Seleccione un partido:", 
+    [
+        "Washington Nationals (L) vs Atlanta Braves (V)", 
+        "Chicago Cubs (L) vs St. Louis Cardinals (V)",
+        "Miami Marlins (L) vs Philadelphia Phillies (V)"
+    ]
+)
+
+st.markdown("---")
+
+# ==============================================================================
+# CONTENEDOR GENERAL: EQUIPO LOCAL
+# ==============================================================================
+with st.container():
+    # Encabezado del equipo con indicador de probabilidad de victoria (Moneyline)
+    st.subheader("🔵 Washington Nationals - Local | ✅ Prob: 65%") 
+    
+    # --- Subcontenedor 1: HITS ESPERADOS (Local) ---
+    st.markdown("**🎯 Proyección de Hits**")
+    
+    # Definimos 7 columnas (damos un poco más de ancho a la primera y última para el texto y botón)
+    l_c1, l_c2, l_c3, l_c4, l_c5, l_c6, l_c7 = st.columns([1.5, 1, 1, 1, 1, 1.2, 1.5])
+    
+    # Encabezados
+    l_c1.write("**Racha**")
+    l_c2.write("**Hoy**")
+    l_c3.write("**Momio**")
+    l_c4.write("**Px**")
+    l_c5.write("**Sug.**")
+    l_c6.write("**Retorno**")
+    l_c7.write("**Acción**")
+    
+    # Fila de Datos Simulares
+    l_c1.write("6-5-4-3-2") 
+    l_c2.write("+7.5") 
+    l_c3.write("-120") 
+    l_c4.write("65%") 
+    l_c5.write("$15.00") 
+    l_c6.write("$25.89") 
+    l_c7.button("Apuesta", key="btn_loc_hits", use_container_width=True)
+    
+    st.write("") # Espacio en blanco para respirar
+    
+    # --- Subcontenedor 2: CARRERAS ESPERADAS (Local) ---
+    st.markdown("**🏃 Proyección de Carreras**")
+    l_d1, l_d2, l_d3, l_d4, l_d5, l_d6, l_d7 = st.columns([1.5, 1, 1, 1, 1, 1.2, 1.5])
+    
+    # Encabezados
+    l_d1.write("**Racha**")
+    l_d2.write("**Hoy**")
+    l_d3.write("**Momio**")
+    l_d4.write("**Px**")
+    l_d5.write("**Sug.**")
+    l_d6.write("**Retorno**")
+    l_d7.write("**Acción**")
+    
+    # Fila de Datos Simulados
+    l_d1.write("10-9-4-5-4")
+    l_d2.write("+4.5")
+    l_d3.write("120")
+    l_d4.write("45%")
+    l_d5.write("$15.00")
+    l_d6.write("$25.00")
+    l_d7.button("Apuesta", key="btn_loc_runs", use_container_width=True)
+
+st.markdown("---") # Divisor visual entre equipos
+
+# ==============================================================================
+# CONTENEDOR GENERAL: EQUIPO VISITANTE
+# ==============================================================================
+with st.container():
+    # Encabezado del equipo visitante
+    st.subheader("🔴 Atlanta Braves - Visitante | ❌ Prob: 35%")
+    
+    # --- Subcontenedor 1: HITS ESPERADOS (Visitante) ---
+    st.markdown("**🎯 Proyección de Hits**")
+    v_c1, v_c2, v_c3, v_c4, v_c5, v_c6, v_c7 = st.columns([1.5, 1, 1, 1, 1, 1.2, 1.5])
+    
+    # Encabezados
+    v_c1.write("**Racha**")
+    v_c2.write("**Hoy**")
+    v_c3.write("**Momio**")
+    v_c4.write("**Px**")
+    v_c5.write("**Sug.**")
+    v_c6.write("**Retorno**")
+    v_c7.write("**Acción**")
+    
+    # Fila de Datos Simulados
+    v_c1.write("5-4-6-4-5")
+    v_c2.write("-6.5")
+    v_c3.write("135")
+    v_c4.write("56%")
+    v_c5.write("$10.00")
+    v_c6.write("$45.87")
+    v_c7.button("Apuesta", key="btn_vis_hits", use_container_width=True)
+    
+    st.write("") # Espacio en blanco
+    
+    # --- Subcontenedor 2: CARRERAS ESPERADAS (Visitante) ---
+    st.markdown("**🏃 Proyección de Carreras**")
+    v_d1, v_d2, v_d3, v_d4, v_d5, v_d6, v_d7 = st.columns([1.5, 1, 1, 1, 1, 1.2, 1.5])
+    
+    # Encabezados
+    v_d1.write("**Racha**")
+    v_d2.write("**Hoy**")
+    v_d3.write("**Momio**")
+    v_d4.write("**Px**")
+    v_d5.write("**Sug.**")
+    v_d6.write("**Retorno**")
+    v_d7.write("**Acción**")
+    
+    # Fila de Datos Simulados
+    v_d1.write("4-5-6-7-8")
+    v_d2.write("+4.5")
+    v_d3.write("200")
+    v_d4.write("56%")
+    v_d5.write("$15.00")
+    v_d6.write("$34.60")
+    v_d7.button("Apuesta", key="btn_vis_runs", use_container_width=True)
+
+st.markdown("---")
