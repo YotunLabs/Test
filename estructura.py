@@ -483,3 +483,74 @@ with st.container():
     v_d7.button("Apuesta", key="btn_vis_runs", use_container_width=True)
 
 st.markdown("---")
+
+# ==============================================================================
+# MÓDULO 2: RADAR DE JUGADORES (PROPS INDIVIDUALES)
+# ==============================================================================
+st.header("🎯 Radar de Jugadores")
+st.write("Análisis individual de bateadores. Expanda cada tarjeta para ver la ventaja matemática (EV+).")
+
+# --- SECCIÓN 1: HITS ---
+st.subheader("1. Proyección de Hits")
+with st.expander("Tommy White (Athletics) | batter_hits > 0.5 | ✅ Prob: 74.4%"):
+    c1, c2, c3, c4, c5 = st.columns([1.5, 1.5, 1, 1, 1.2])
+    
+    with c1:
+        st.write("Racha Reciente")
+        st.subheader("1-0-2-0-4")
+    with c2:
+        st.write("Probabilidad Modelo")
+        st.subheader("74.4%")
+    with c3:
+        st.write("Cuota Casino")
+        st.subheader("1.43")
+    with c4:
+        st.write("Sug. Kelly")
+        st.subheader("$10.00")
+    with c5:
+        st.write("Retorno: $14.30")
+        st.button("Ejecutar Apuesta", key="btn_hit_1", use_container_width=True)
+
+# --- SECCIÓN 2: BASES TOTALES ---
+st.subheader("2. Proyección de Bases Totales")
+with st.expander("Lane Thomas (WSH) | batter_bases > 1.5 | ✅ Prob: 55.0%"):
+    d1, d2, d3, d4, d5 = st.columns([1.5, 1.5, 1, 1, 1.2])
+    
+    with d1:
+        st.write("Racha Reciente")
+        st.subheader("2-1-3-0-2")
+    with d2:
+        st.write("Probabilidad Modelo")
+        st.subheader("55.0%")
+    with d3:
+        st.write("Cuota Casino")
+        st.subheader("1.85")
+    with d4:
+        st.write("Sug. Kelly")
+        st.subheader("$15.00")
+    with d5:
+        st.write("Retorno: $27.75")
+        st.button("Ejecutar Apuesta", key="btn_base_1", use_container_width=True)
+
+# --- SECCIÓN 3: HOME RUNS ---
+st.subheader("3. Proyección de Home Runs")
+with st.expander("CJ Abrams (WSH) | batter_home_runs > 0.5 | 🔥 Prob: 28.5%"):
+    f1, f2, f3, f4, f5 = st.columns([1.5, 1.5, 1, 1, 1.2])
+    
+    with f1:
+        st.write("Racha Reciente")
+        st.subheader("0-0-1-0-1")
+    with f2:
+        st.write("Probabilidad Modelo")
+        st.subheader("28.5%")
+    with f3:
+        st.write("Cuota Casino")
+        st.subheader("3.20")
+    with f4:
+        st.write("Sug. Kelly")
+        st.subheader("$5.00")
+    with f5:
+        st.write("Retorno: $16.00")
+        st.button("Ejecutar Apuesta", key="btn_hr_1", use_container_width=True)
+
+st.markdown("---")
