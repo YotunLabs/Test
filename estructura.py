@@ -624,7 +624,7 @@ st.subheader("I PARLAY POR PARTIDO")
 st.write("Filtre las combinaciones matemáticas exclusivas para un encuentro específico.")
 
 # Menú desplegable con clave única
-partido_parlay = st.selectbox(
+partido_parlays = st.selectbox(
     "Seleccione el partido para ver sus Parlays:",
     [
         "Miami Marlins (L) vs Philadelphia Phillies (V)",
