@@ -554,3 +554,106 @@ with st.expander("CJ Abrams (WSH) | batter_home_runs > 0.5 | 🔥 Prob: 28.5%"):
         st.button("Ejecutar Apuesta", key="btn_hr_1", use_container_width=True)
 
 st.markdown("---")
+
+# ==============================================================================
+# MÓDULO 3: MÁQUINA DE PARLAYS DINÁMICOS
+# ==============================================================================
+st.header("🔥 Parlays de hoy")
+st.write("Combinaciones algorítmicas con Valor Esperado (EV) Positivo. El motor cruza las mejores probabilidades y aplica bonos de correlación ofensiva.")
+
+st.markdown("---")
+
+# --- SECCIÓN 1: PARLAYS DE HITS ---
+st.subheader("I TOP 8 PARLAY HITS JUGADORES")
+
+with st.expander("Parlay 1 (Hits - Agresivo) | Cuota: 4.50 | Prob: 35.2%", expanded=False):
+    
+    st.info("💡 Correlación Ofensiva: Bateadores en racha enfrentando a un pitcher con WHIP > 1.40")
+    
+    # 4 Picks divididos en dos filas de 2 columnas
+    sel1, sel2 = st.columns(2)
+    sel1.success("**Pick 1:** CJ Abrams (WSH) | Hits > 0.5 (Prob: 65%)")
+    sel2.success("**Pick 2:** Lane Thomas (WSH) | Hits > 0.5 (Prob: 62%)")
+
+    sel3, sel4 = st.columns(2)
+    sel3.success("**Pick 3:** Luis Garcia (WSH) | Hits > 0.5 (Prob: 58%)")
+    sel4.success("**Pick 4:** Jesse Winker (WSH) | Hits > 0.5 (Prob: 55%)")
+    
+    st.markdown("---")
+    
+    # Métricas financieras del Parlay
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric(label="Inversión Sugerida", value="$25.00")
+    m2.metric(label="Retorno (Payout)", value="$112.50", delta="Rentable")
+    m3.metric(label="Ventaja (EV)", value="+18.5%", delta="EV Positivo", delta_color="normal")
+    
+    with m4:
+        st.write("")
+        st.button("Ejecutar Parlay 1", key="btn_parlay_hits_1", type="primary")
+
+st.markdown("---")
+
+# --- SECCIÓN 2: PARLAYS DE BASES TOTALES ---
+st.subheader("I TOP 8 PARLAY BASES JUGADORES")
+
+with st.expander("Parlay 2 (Bases - Conservador) | Cuota: 3.10 | Prob: 42.1%", expanded=False):
+    
+    sel5, sel6 = st.columns(2)
+    sel5.success("**Pick 1:** Marcell Ozuna (ATL) | Bases > 1.5 (Prob: 52%)")
+    sel6.success("**Pick 2:** Austin Riley (ATL) | Bases > 1.5 (Prob: 50%)")
+
+    sel7, sel8 = st.columns(2)
+    sel7.success("**Pick 3:** Matt Olson (ATL) | Bases > 0.5 (Prob: 60%)")
+    sel8.success("**Pick 4:** Ozzie Albies (ATL) | Bases > 0.5 (Prob: 61%)")
+    
+    st.markdown("---")
+    
+    m5, m6, m7, m8 = st.columns(4)
+    m5.metric(label="Inversión Sugerida", value="$30.00")
+    m6.metric(label="Retorno (Payout)", value="$93.00", delta="Rentable")
+    m7.metric(label="Ventaja (EV)", value="+12.4%", delta="EV Positivo", delta_color="normal")
+    
+    with m8:
+        st.write("")
+        st.button("Ejecutar Parlay 2", key="btn_parlay_bases_1", type="primary")
+
+st.markdown("---")
+
+# --- SECCIÓN 3: PARLAY FILTRADO POR PARTIDO ---
+st.subheader("I PARLAY POR PARTIDO")
+st.write("Filtre las combinaciones matemáticas exclusivas para un encuentro específico.")
+
+# Menú desplegable con clave única
+partido_parlay = st.selectbox(
+    "Seleccione el partido para ver sus Parlays:",
+    [
+        "Miami Marlins (L) vs Philadelphia Phillies (V)",
+        "Washington Nationals (L) vs Atlanta Braves (V)",
+        "Chicago Cubs (L) vs St. Louis Cardinals (V)"
+    ],
+    key="selector_parlay_unico"
+)
+
+st.markdown("---")
+
+# El título del expander es dinámico según lo que se elija arriba
+with st.expander(f"TOP 2 {partido_parlay} | Cuota: 5.20 | Prob: 31.8%", expanded=False): 
+    
+    sel9, sel10 = st.columns(2)
+    sel9.success("**Pick 1:** Jazz Chisholm (MIA) | Bases > 1.5 (Prob: 48%)")
+    sel10.success("**Pick 2:** Bryan De La Cruz (MIA) | Hits > 0.5 (Prob: 55%)")
+
+    sel11, sel12 = st.columns(2)
+    sel11.success("**Pick 3:** Bryce Harper (PHI) | Bases > 1.5 (Prob: 51%)")
+    sel12.success("**Pick 4:** Trea Turner (PHI) | Hits > 0.5 (Prob: 62%)")
+    
+    st.markdown("---")
+    
+    m9, m10, m11, m12 = st.columns(4)
+    m9.metric(label="Inversión Sugerida", value="$20.00")
+    m10.metric(label="Retorno (Payout)", value="$104.00", delta="Rentable")
+    m11.metric(label="Ventaja (EV)", value="+15.2%", delta="EV Positivo", delta_color="normal")
+    
+    with m12:
+        st.write("")
+        st.button("Ejecutar Parlay", key="btn_ejecutar_parlay_partido", type="primary")
