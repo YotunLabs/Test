@@ -78,23 +78,6 @@ with tab_hits:
     st.subheader("Proyección de Hits (Formato Tarjeta Responsiva)")
     st.write("Diseño optimizado para celular. Los botones de acción rápida están siempre visibles.")
     
-    # Simulación de un jugador EV+
-    with st.expander("#### George Springer (TOR) | Hits > 0.5 | **✅ EV: +15.4%** | 🔥 Prob: 68.4%"):
-        #st.markdown("#### George Springer (TOR) | Hits > 0.5")
-        #st.markdown("**✅ EV: +15.4%** | 🔥 Prob: 68.4%")
-        
-        # Botones de acción rápida siempre visibles
-        col_btn1, col_btn2, col_btn3 = st.columns(3)
-        col_btn1.button("Caliente", key="c_springer", use_container_width=True)
-        col_btn2.button("Winpot", key="w_springer", use_container_width=True)
-        col_btn3.button("Playdoit", key="p_springer", use_container_width=True)
-        
-        d1, d2, d3, d4 = st.columns(4)
-        d1.metric("Racha", "2-1-1-4-1")
-        d2.number_input("Momio", min_value=1, value=10)
-        d3.metric("Sug. Kelly", "$12.50")
-        d4.metric("Retorno", "$20.62")
-
     with st.expander("#### George Springer (TOR) | Hits > 0.5 | **✅ EV: +15.4%** | 🔥 Prob: 68.4%"):
         #st.markdown("#### George Springer (TOR) | Hits > 0.5")
         #st.markdown("**✅ EV: +15.4%** | 🔥 Prob: 68.4%")
@@ -154,64 +137,25 @@ with tab_bases:
 # TAB 3: CALCULADORA MANUAL DE HOME RUNS (MODO HÍBRIDO)
 # ------------------------------------------------------------------------------
 with tab_hr:
-    st.subheader("Calculadora Híbrida en RAM (Home Runs)")
-    st.write("Ingrese el momio americano (ej. +350) para ejecutar el modelo matemático en tiempo real.")
-    
-    col_input1, col_input2 = st.columns([2, 1])
-    
-    with col_input1:
-        jugador_hr = st.selectbox("Seleccione Bateador:", ["George Springer (TOR)", "Vladimir Guerrero Jr. (TOR)", "Nolan Arenado (STL)"])
+    st.subheader("Proyección de Hits (Formato Tarjeta Responsiva)")
+            
+    st.write("Diseño optimizado para celular. Los botones de acción rápida están siempre visibles.")
+    # Simulación de un jugador EV+
+    with st.expander("#### George Springer (TOR) | Hits > 0.5 | **✅ EV: +15.4%** | 🔥 Prob: 68.4%"):
+        #st.markdown("#### George Springer (TOR) | Hits > 0.5")
+        #st.markdown("**✅ EV: +15.4%** | 🔥 Prob: 68.4%")
         
-        # Simulación: El sistema ya tiene la Px pura calculada por el modelo (60%)
-        prob_modelo_pura = 0.18 # 18% de probabilidad de HR según nuestra BD
-        st.caption(f"Racha HR: 0-1-0-0-0 | Probabilidad Base Modelo: {prob_modelo_pura*100:.1f}%")
+        # Botones de acción rápida siempre visibles
+        col_btn1, col_btn2, col_btn3 = st.columns(3)
+        col_btn1.button("Caliente", key="c_springer", use_container_width=True)
+        col_btn2.button("Winpot", key="w_springer", use_container_width=True)
+        col_btn3.button("Playdoit", key="p_springer", use_container_width=True)
         
-    with col_input2:
-        momio_americano = st.text_input("Momio Americano:", placeholder="Ej: +450 o -110")
-        
-    if momio_americano:
-        try:
-            # Conversión Matemática: Americano a Decimal
-            momio_num = float(momio_americano)
-            if momio_num > 0:
-                momio_decimal = (momio_num / 100) + 1
-            else:
-                momio_decimal = (100 / abs(momio_num)) + 1
-                
-            # Probabilidad Implícita del Casino (40%)
-            prob_casino = 1 / momio_decimal
-            
-            # Fusión Híbrida 60/40
-            px_hibrida = (prob_modelo_pura * 0.60) + (prob_casino * 0.40)
-            
-            # Cálculo de EV
-            ventaja_ev = (px_hibrida * momio_decimal) - 1
-            
-            # Fórmula de Kelly (Reducida al 25% por gestión de riesgo)
-            b = momio_decimal - 1.0
-            q = 1.0 - px_hibrida
-            kelly_puro = ((px_hibrida * b) - q) / b
-            kelly_sugerido = (capital_total * kelly_puro * 0.25) if kelly_puro > 0 else 0.0
-            
-            # Despliegue de Resultados Rápidos
-            st.markdown("---")
-            r1, r2, r3, r4 = st.columns(4)
-            r1.metric("Px Híbrida", f"{px_hibrida*100:.1f}%")
-            r2.metric("Momio Decimal", f"{momio_decimal:.2f}")
-            r3.metric("Ventaja (EV)", f"{ventaja_ev*100:+.1f}%", delta="EV+" if ventaja_ev > 0 else "-EV", delta_color="normal" if ventaja_ev > 0 else "inverse")
-            r4.metric("Kelly Sugerido", f"${kelly_sugerido:,.2f}")
-            
-            if ventaja_ev > 0:
-                st.success("¡Apuesta Rentable! Seleccione la cartera para registrar la operación:")
-                b1, b2, b3 = st.columns(3)
-                b1.button("Disparar en Caliente", use_container_width=True)
-                b2.button("Disparar en Winpot", use_container_width=True)
-                b3.button("Disparar en Playdoit", use_container_width=True)
-            else:
-                st.error("El momio ingresado no ofrece valor matemático suficiente para disparar.")
-                
-        except ValueError:
-            st.warning("Por favor ingrese un momio americano válido (solo números y signos + o -).")
+        d1, d2, d3, d4 = st.columns(4)
+        d1.metric("Racha", "2-1-1-4-1")
+        d2.number_input("Momio", min_value=1, value=10)
+        d3.metric("Sug. Kelly", "$12.50")
+        d4.metric("Retorno", "$20.62")
 
 
 import streamlit as st
