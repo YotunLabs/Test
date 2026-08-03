@@ -58,15 +58,20 @@ st.sidebar.success("Última Sincronización: 11:15 AM 🔄")
 # ==============================================================================
 # PANTALLA PRINCIPAL: RADAR DE JUGADORES (RESPONSIVE)
 # ==============================================================================
-st.title("🎯 Radar de Jugadores")
-st.write("Demostración de interfaces responsivas para análisis móvil.")
+st.title("📊 Terminal de Partidos")
+st.write("Análisis algorítmico y ejecución rápida de órdenes.")
+st.markdown("---") 
 
 # Filtro general de partido
 partido_seleccionado = st.selectbox(
     "Seleccione el partido a analizar:",
     ["Toronto Blue Jays (L) vs St. Louis Cardinals (V) | 🕒 11:37"]
 )
+
 st.markdown("---")
+
+st.subtitle("🎯 Radar de Jugadores")
+st.write("Demostración de interfaces responsivas para análisis móvil.")
 
 # Creación de los Tabs (Pestañas horizontales)
 tab_hits, tab_bases, tab_hr = st.tabs(["🎯 1. Hits (Tarjetas)", "🏃 2. Bases (Tabla)", "🚀 3. Home Runs (Manual)"])
