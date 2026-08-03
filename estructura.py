@@ -92,6 +92,22 @@ with tab_hits:
         
         d1, d2, d3, d4 = st.columns(4)
         d1.metric("Racha", "2-1-1-4-1")
+        d2.number_input("Cantidad de piezas", min_value=1, value=10)
+        d3.metric("Sug. Kelly", "$12.50")
+        d4.metric("Retorno", "$20.62")
+
+    with st.expander("#### George Springer (TOR) | Hits > 0.5 | **✅ EV: +15.4%** | 🔥 Prob: 68.4%"):
+        #st.markdown("#### George Springer (TOR) | Hits > 0.5")
+        #st.markdown("**✅ EV: +15.4%** | 🔥 Prob: 68.4%")
+        
+        # Botones de acción rápida siempre visibles
+        col_btn1, col_btn2, col_btn3 = st.columns(3)
+        col_btn1.button("Caliente", key="c_springer", use_container_width=True)
+        col_btn2.button("Winpot", key="w_springer", use_container_width=True)
+        col_btn3.button("Playdoit", key="p_springer", use_container_width=True)
+        
+        d1, d2, d3, d4 = st.columns(4)
+        d1.metric("Racha", "2-1-1-4-1")
         d2.metric("Momio", "1.65")
         d3.metric("Sug. Kelly", "$12.50")
         d4.metric("Retorno", "$20.62")
