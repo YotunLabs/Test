@@ -92,7 +92,7 @@ with tab_hits:
         
         d1, d2, d3, d4 = st.columns(4)
         d1.metric("Racha", "2-1-1-4-1")
-        d2.number_input("Cantidad de piezas", min_value=1, value=10)
+        d2.number_input("Momio", min_value=1, value=10)
         d3.metric("Sug. Kelly", "$12.50")
         d4.metric("Retorno", "$20.62")
 
