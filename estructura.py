@@ -90,7 +90,7 @@ with tab_hits:
         col_btn2.button("Winpot", key="w_springer", use_container_width=True)
         col_btn3.button("Playdoit", key="p_springer", use_container_width=True)
 
-        with st.container(border=True):
+        with st.expander():
             d1, d2, d3, d4 = st.columns(4)
             d1.metric("Racha", "2-1-1-4-1")
             d2.metric("Momio", "1.65")
