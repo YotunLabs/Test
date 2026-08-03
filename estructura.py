@@ -2,6 +2,25 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+
+st.title("Gestión de Proyectos")
+
+# Creamos un contenedor con borde para aislar el proyecto
+with st.container(border=True):
+    st.subheader("Lote 100 Parches Scouts")
+    
+    # Metemos columnas DENTRO del contenedor para organizar la data
+    col1, col2 = st.columns(2)
+    with col1:
+        st.write("🏭 **Estatus:** En bordadora")
+        st.write("📅 **Entrega:** 20 de Junio")
+    with col2:
+        st.write("👤 **Responsable:** Gabriela")
+        st.write("💰 **Anticipo:** Pagado")
+        
+    st.progress(75, text="Avance de producción")
+    st.button("Marcar como terminado", key="btn_parches")
+
 # Configuración de la página (Ancho completo para el ERP)
 st.set_page_config(page_title="Waals ERP", layout="wide", page_icon="🏭")
 
