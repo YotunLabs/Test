@@ -2,6 +2,73 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+st.set_page_config(page_title="Waals ERP - Cotizador", layout="centered", page_icon="🏭")
+
+st.title("⚡ Centro de Cotizaciones Rápido")
+st.write("Generador de precios basado en reglas de manufactura.")
+
+# 1. ZONA DE SELECCIÓN (El embudo)
+with st.container(border=True):
+    st.subheader("1. Parámetros del Pedido")
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        # Aquí luego conectaremos MySQL, por ahora es una lista estática
+        familia = st.selectbox("Familia Operativa", ["Sublimación Cilíndricos", "Bordado Plano", "DTF Textil Plano"])
+    
+    with col2:
+        # Lógica simulada: Si elige Cilíndricos, solo muestra Tazas y Termos
+        if familia == "Sublimación Cilíndricos":
+            producto = st.selectbox("Producto Objetivo", ["Taza Clásica Blanca 11oz", "Termo 30oz Acero", "Taza Mágica"])
+        elif familia == "Bordado Plano":
+            producto = st.selectbox("Producto Objetivo", ["Parche Pro (Lote 15)", "Sudadera Ejecutiva Bordada"])
+        else:
+            producto = st.selectbox("Producto Objetivo", ["Playera Blanca Esencial (Logo 12x12)"])
+
+    cantidad = st.number_input("Cantidad de piezas (Volumen)", min_value=1, value=10, step=1)
+
+# 2. ZONA DE DESGLOSE TÉCNICO (El ADN del producto)
+# Simulamos los costos que extrajimos de tus reglas de "Cascarón y Fracción"
+costo_cascaron = 45.00 # Costo ficticio de una taza mágica virgen
+costo_formato = 8.20 * 0.25 # Costo de la hoja A4 dividido en 4 tazas
+costo_operativo_total = (costo_cascaron + costo_formato) * cantidad
+
+with st.container(border=True):
+    st.subheader("2. Estructura de Costos (BOM)")
+    
+    st.markdown(f"**Análisis unitario para: {producto}**")
+    
+    # Usamos columnas pequeñas para los datos crudos
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Costo Cascarón (Virgen)", f"${costo_cascaron:,.2f}")
+    c2.metric("Fracción Insumo (Formato)", f"${costo_formato:,.2f}")
+    c3.metric("Costo Unitario Real", f"${(costo_cascaron + costo_formato):,.2f}")
+    
+    st.info(f"Costo de Producción por lote de {cantidad} piezas: **${costo_operativo_total:,.2f} MXN**")
+
+# 3. ZONA DE RENTABILIDAD Y CIERRE
+with st.container(border=True):
+    st.subheader("3. Proyección Comercial")
+    
+    # Aquí puedes jugar con el precio de venta sugerido
+    precio_venta_unitario = st.number_input("Precio de Venta Sugerido (Unitario)", min_value=0.0, value=120.00)
+    ingreso_bruto = precio_venta_unitario * cantidad
+    utilidad_neta = ingreso_bruto - costo_operativo_total
+    margen = (utilidad_neta / ingreso_bruto) * 100 if ingreso_bruto > 0 else 0
+    
+    st.divider()
+    
+    # Resultados finales con colores de alerta
+    r1, r2, r3 = st.columns(3)
+    r1.metric("Ingreso Cobrado (Bruto)", f"${ingreso_bruto:,.2f}")
+    r2.metric("Utilidad (Libre)", f"${utilidad_neta:,.2f}", f"{margen:.1f}% Margen")
+    
+    if margen < 30:
+        st.error("⚠️ Alerta de Margen: Por debajo del 30% operativo.")
+    else:
+        st.success("✅ Margen saludable. Listo para aprobar.")
+        
+    st.button("Generar PDF y Enviar a WhatsApp", type="primary", use_container_width=True)
 
 st.title("Gestión de Proyectos")
 
