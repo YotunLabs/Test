@@ -70,7 +70,7 @@ partido_seleccionado = st.selectbox(
 
 st.markdown("---")
 
-st.subtitle("🎯 Radar de Jugadores")
+st.subheader("🎯 Radar de Jugadores")
 st.write("Demostración de interfaces responsivas para análisis móvil.")
 
 # Creación de los Tabs (Pestañas horizontales)
