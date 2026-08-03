@@ -92,8 +92,8 @@ with tab_hits:
 
         with st.container(border=True):
             d1, d2, d3, d4 = st.columns(4)
-            d1.metric("Racha", "2-1-1-4-1")
-            d2.metric("Momio", "1.65")
+            d1.markdown("Racha", "2-1-1-4-1")
+            d2.markdown("Momio", "1.65")
             d3.metric("Sug. Kelly", "$12.50")
             d4.metric("Retorno", "$20.62")
 
