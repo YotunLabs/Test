@@ -80,7 +80,7 @@ with tab_hits:
     st.write("Diseño optimizado para celular. Los botones de acción rápida están siempre visibles.")
     
     # Simulación de un jugador EV+
-    with st.container(border=True):
+    with st.container(border=True, ✅ EV: +15.4%** | 🔥 Prob: 68.4% | George Springer (TOR) | Hits > 0.5""):
         st.markdown("#### George Springer (TOR) | Hits > 0.5")
         st.markdown("**✅ EV: +15.4%** | 🔥 Prob: 68.4%")
         
