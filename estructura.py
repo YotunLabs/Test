@@ -10,42 +10,41 @@ st.set_page_config(page_title="Motor EV - Maqueta Móvil", layout="wide", initia
 # SIDEBAR: FINANZAS, METAS Y TELEMETRÍA
 # ==============================================================================
 st.sidebar.title("⚙️ Panel Operativo")
+        menu = st.sidebar.radio("Navegación:", [
+            "En Vivo (Partidos)", 
+            "Parlays (SGP)", 
+            "Inicio (Top EV)", 
+            "Historial", 
+            "Bankroll", 
+            "Telemetría (Logs)"
+        ])
+        st.sidebar.markdown("---")
 
-# 1. Gestión de Carteras (Bankroll Fraccionado)
-st.sidebar.subheader("💰 Carteras de Inversión")
-saldo_caliente = 5450.00
-saldo_winpot = 4000.00
-saldo_playdoit = 3500.00
-saldo_otro = 2500.00
-capital_total = saldo_caliente + saldo_winpot + saldo_playdoit + saldo_otro
+        # 1. Gestión Multicartera
+        st.sidebar.subheader("💼 Carteras de Inversión")
+        c_playdoit = st.sidebar.number_input("Playdoit (MXN)", value=5000.00, step=100.0)
+        c_winpot = st.sidebar.number_input("Winpot (MXN)", value=4250.00, step=100.0)
+        c_caliente = st.sidebar.number_input("Caliente (MXN)", value=6200.00, step=100.0)
+        c_otro = st.sidebar.number_input("Otro (MXN)", value=0.00, step=100.0)
 
-st.sidebar.metric(label="Capital Neto Disponible", value=f"${capital_total:,.2f} MXN")
+        capital_neto = c_playdoit + c_winpot + c_caliente + c_otro
+        st.sidebar.metric("Capital Neto Total", f"${capital_neto:,.2f} MXN")
+        st.sidebar.markdown("---")
 
-c1, c2 = st.sidebar.columns(2)
-c1.metric("Caliente", f"${saldo_caliente:,.0f}")
-c2.metric("Winpot", f"${saldo_winpot:,.0f}")
-c1.metric("Playdoit", f"${saldo_playdoit:,.0f}")
-c2.metric("Otro", f"${saldo_otro:,.0f}")
+        # 2. Cascada de Metas Operativas
+        st.sidebar.subheader("📈 Meta Mensual y Costos Fijos")
+        ganancia_mensual = 1500.0  # Simulado visualmente
+        costo_vps, costo_api, gastos_extra, meta_utilidad = 300, 600, 400, 5000
+        total_meta = costo_vps + costo_api + gastos_extra + meta_utilidad
 
-st.sidebar.markdown("---")
-
-# 2. Cascada de Amortización y Meta Mensual
-st.sidebar.subheader("📈 Meta Mensual (Cascada)")
-ingresos_mes = 1850.00 # Dinero ganado este mes (simulación)
-gastos_operativos = 1300.00 # 300 VPS + 600 API + 400 Extras
-meta_neta = 5000.00
-meta_bruta = gastos_operativos + meta_neta
-
-# Lógica visual de la cascada
-if ingresos_mes <= gastos_operativos:
-    progreso_gastos = ingresos_mes / gastos_operativos
-    st.sidebar.progress(progreso_gastos, text=f"Cubriendo Operación: ${ingresos_mes:,.0f} / ${gastos_operativos:,.0f}")
-    st.sidebar.progress(0.0, text=f"Ganancia Neta: $0 / ${meta_neta:,.0f}")
-else:
-    st.sidebar.progress(1.0, text=f"Operación Cubierta ✅ (${gastos_operativos:,.0f})")
-    ganancia_real = ingresos_mes - gastos_operativos
-    progreso_meta = min(ganancia_real / meta_neta, 1.0)
-    st.sidebar.progress(progreso_meta, text=f"Ganancia Neta: ${ganancia_real:,.0f} / ${meta_neta:,.0f}")
+        progreso = min(ganancia_mensual / total_meta, 1.0)
+        st.sidebar.progress(progreso, text=f"Progreso Total: ${ganancia_mensual:,.0f} / ${total_meta:,.0f}")
+        
+        st.sidebar.caption(f"🖥️ VPS ($300): {'✅ Cubierto' if ganancia_mensual >= costo_vps else '⏳ Pendiente'}")
+        st.sidebar.caption(f"📡 API ($600): {'✅ Cubierto' if ganancia_mensual >= (costo_vps + costo_api) else '⏳ Pendiente'}")
+        st.sidebar.caption(f"☕ Extras ($400): {'✅ Cubierto' if ganancia_mensual >= (costo_vps + costo_api + gastos_extra) else '⏳ Pendiente'}")
+        utilidad_real = max(0, ganancia_mensual - (costo_vps + costo_api + gastos_extra))
+        st.sidebar.caption(f"💰 Utilidad Neta: ${utilidad_real:,.0f} / ${meta_utilidad:,.0f}")
 
 st.sidebar.markdown("---")
 
