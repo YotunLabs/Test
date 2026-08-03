@@ -145,4 +145,3 @@ elif menu == "Telemetría (Logs)":
     }
     df_logs = pd.DataFrame(data)
     st.dataframe(df_logs, use_container_width=True)
-
