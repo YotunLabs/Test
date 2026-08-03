@@ -1,223 +1,200 @@
-# ==============================================================================
-# MÓDULO 1: CONFIGURACIÓN Y CONEXIÓN
-# ==============================================================================
 import streamlit as st
-import mysql.connector
 import pandas as pd
 
-st.set_page_config(page_title="Motor MLB - PRO v2.0", layout="wide", initial_sidebar_state="expanded")
-
-# --- FUNCIONES MATEMÁTICAS Y DE CONVERSIÓN ---
-def calcular_kelly(prob, cuota_decimal, capital):
-    b = cuota_decimal - 1.0
-    if b <= 0: return 10.0
-    q = 1.0 - prob
-    kelly_puro = (prob * b - q) / b
-    stake_sugerido = capital * kelly_puro * 0.25 
-    return max(round(stake_sugerido, 2), 10.0) if stake_sugerido > 0 else 0.0
-
-def americano_a_decimal(americano):
-    """Convierte momio americano (+350 o -120) a cuota decimal."""
-    if americano == 0: return 0
-    if americano > 0:
-        return (americano / 100) + 1
-    else:
-        return (100 / abs(americano)) + 1
+# ==============================================================================
+# CONFIGURACIÓN GENERAL
+# ==============================================================================
+st.set_page_config(page_title="Motor EV - Maqueta Móvil", layout="wide", initial_sidebar_state="expanded")
 
 # ==============================================================================
-# MÓDULO 2: SIDEBAR - FINANZAS Y TELEMETRÍA OPERATIVA
+# SIDEBAR: FINANZAS, METAS Y TELEMETRÍA
 # ==============================================================================
 st.sidebar.title("⚙️ Panel Operativo")
 
-menu = st.sidebar.radio("Navegación:", ["En Vivo (Partidos)", "Parlays (SGP)", "Inicio (Top EV)", "Historial", "Bankroll", "Telemetría (Logs)"])
+# 1. Gestión de Carteras (Bankroll Fraccionado)
+st.sidebar.subheader("💰 Carteras de Inversión")
+saldo_caliente = 5450.00
+saldo_winpot = 4000.00
+saldo_playdoit = 3500.00
+saldo_otro = 2500.00
+capital_total = saldo_caliente + saldo_winpot + saldo_playdoit + saldo_otro
+
+st.sidebar.metric(label="Capital Neto Disponible", value=f"${capital_total:,.2f} MXN")
+
+c1, c2 = st.sidebar.columns(2)
+c1.metric("Caliente", f"${saldo_caliente:,.0f}")
+c2.metric("Winpot", f"${saldo_winpot:,.0f}")
+c1.metric("Playdoit", f"${saldo_playdoit:,.0f}")
+c2.metric("Otro", f"${saldo_otro:,.0f}")
+
 st.sidebar.markdown("---")
 
-# 1. Gestión Multicartera (Simulada para visualización; luego se enlazará a BD)
-st.sidebar.subheader("💼 Carteras de Inversión")
-c_playdoit = st.sidebar.number_input("Playdoit (MXN)", value=5000.00, step=100.0)
-c_winpot = st.sidebar.number_input("Winpot (MXN)", value=4250.00, step=100.0)
-c_caliente = st.sidebar.number_input("Caliente (MXN)", value=6200.00, step=100.0)
-c_otro = st.sidebar.number_input("Otro (MXN)", value=0.00, step=100.0)
+# 2. Cascada de Amortización y Meta Mensual
+st.sidebar.subheader("📈 Meta Mensual (Cascada)")
+ingresos_mes = 1850.00 # Dinero ganado este mes (simulación)
+gastos_operativos = 1300.00 # 300 VPS + 600 API + 400 Extras
+meta_neta = 5000.00
+meta_bruta = gastos_operativos + meta_neta
 
-capital_neto = c_playdoit + c_winpot + c_caliente + c_otro
-st.sidebar.metric("Capital Neto Total", f"${capital_neto:,.2f} MXN")
+# Lógica visual de la cascada
+if ingresos_mes <= gastos_operativos:
+    progreso_gastos = ingresos_mes / gastos_operativos
+    st.sidebar.progress(progreso_gastos, text=f"Cubriendo Operación: ${ingresos_mes:,.0f} / ${gastos_operativos:,.0f}")
+    st.sidebar.progress(0.0, text=f"Ganancia Neta: $0 / ${meta_neta:,.0f}")
+else:
+    st.sidebar.progress(1.0, text=f"Operación Cubierta ✅ (${gastos_operativos:,.0f})")
+    ganancia_real = ingresos_mes - gastos_operativos
+    progreso_meta = min(ganancia_real / meta_neta, 1.0)
+    st.sidebar.progress(progreso_meta, text=f"Ganancia Neta: ${ganancia_real:,.0f} / ${meta_neta:,.0f}")
 
 st.sidebar.markdown("---")
 
-# 2. Cascada de Metas Operativas (Costos Fijos vs Utilidad)
-st.sidebar.subheader("📈 Meta Mensual y Costos Fijos")
+# 3. Telemetría y Estado del Servidor
+st.sidebar.subheader("🖥️ Estado del Sistema")
+st.sidebar.progress(0.25, text="Consultas API Odds (125/500)")
 
-# Supongamos que llevamos ganados $1,500 en el mes para el ejemplo visual
-ganancia_mensual = 1500.0  
-
-costo_vps = 300
-costo_api = 600
-gastos_extra = 400
-meta_utilidad = 5000
-total_meta = costo_vps + costo_api + gastos_extra + meta_utilidad
-
-progreso = min(ganancia_mensual / total_meta, 1.0)
-st.sidebar.progress(progreso, text=f"Progreso Total: ${ganancia_mensual:,.0f} / ${total_meta:,.0f}")
-
-# Desglose en cascada
-st.sidebar.caption(f"🖥️ VPS ($300): {'✅ Cubierto' if ganancia_mensual >= costo_vps else '⏳ Pendiente'}")
-st.sidebar.caption(f"📡 API ($600): {'✅ Cubierto' if ganancia_mensual >= (costo_vps + costo_api) else '⏳ Pendiente'}")
-st.sidebar.caption(f"☕ Extras ($400): {'✅ Cubierto' if ganancia_mensual >= (costo_vps + costo_api + gastos_extra) else '⏳ Pendiente'}")
-utilidad_real = max(0, ganancia_mensual - (costo_vps + costo_api + gastos_extra))
-st.sidebar.caption(f"💰 Utilidad Neta: ${utilidad_real:,.0f} / ${meta_utilidad:,.0f}")
+st.sidebar.info("VPS Hostinger: Activo 🟢")
+st.sidebar.success("Última Sincronización: 11:15 AM 🔄")
 
 # ==============================================================================
-# PESTAÑA: EN VIVO (TABLERO Y TABS DE JUGADORES)
+# PANTALLA PRINCIPAL: RADAR DE JUGADORES (RESPONSIVE)
 # ==============================================================================
-if menu == "En Vivo (Partidos)":
-    st.title("📊 Terminal de Partidos")
-    st.write("Análisis algorítmico y ejecución rápida de órdenes.")
-    st.markdown("---") 
+st.title("🎯 Radar de Jugadores")
+st.write("Demostración de interfaces responsivas para análisis móvil.")
 
-    # Simulación del filtro principal de partido
-    partido_sel = st.selectbox("Filtro Maestro - Seleccione un Partido:", [
-        "Washington Nationals (L) vs Atlanta Braves (V)", 
-        "Chicago Cubs (L) vs St. Louis Cardinals (V)"
-    ])
-    st.markdown("---")
+# Filtro general de partido
+partido_seleccionado = st.selectbox(
+    "Seleccione el partido a analizar:",
+    ["Toronto Blue Jays (L) vs St. Louis Cardinals (V) | 🕒 11:37"]
+)
+st.markdown("---")
 
-    # Contenedores de Proyección Colectiva (Simulados hasta integrar la extracción del motor V2)
-    with st.container():
-        st.subheader("🔵 Washington Nationals - Local | ✅ Prob: 65%") 
-        st.markdown("**🎯 Proyección Ofensiva Colectiva**")
-        loc1, loc2, loc3, loc4, loc5, loc6 = st.columns([1.5, 1, 1, 1, 1, 1])
-        loc1.write("**Mercado**"); loc2.write("**Racha Eq.**"); loc3.write("**Línea**"); loc4.write("**Momio**"); loc5.write("**Px Real**"); loc6.write("**EV**")
-        loc1.write("Total de Hits"); loc2.write("9-7-12-5-8"); loc3.write("+8.5"); loc4.write("-110"); loc5.write("55%"); loc6.write("✅ +4.5%")
-        loc1.write("Total Carreras"); loc2.write("4-3-6-2-5"); loc3.write("+4.5"); loc4.write("120"); loc5.write("45%"); loc6.write("❌ -2.1%")
+# Creación de los Tabs (Pestañas horizontales)
+tab_hits, tab_bases, tab_hr = st.tabs(["🎯 1. Hits (Tarjetas)", "🏃 2. Bases (Tabla)", "🚀 3. Home Runs (Manual)"])
+
+# ------------------------------------------------------------------------------
+# TAB 1: OPCIÓN A (Tarjetas Móviles / Acordeones)
+# ------------------------------------------------------------------------------
+with tab_hits:
+    st.subheader("Proyección de Hits (Formato Tarjeta Responsiva)")
+    st.write("Diseño optimizado para celular. Los botones de acción rápida están siempre visibles.")
     
-    st.markdown("---")
+    # Simulación de un jugador EV+
+    with st.container(border=True):
+        st.markdown("#### George Springer (TOR) | Hits > 0.5")
+        st.markdown("**✅ EV: +15.4%** | 🔥 Prob: 68.4%")
+        
+        # Botones de acción rápida siempre visibles
+        col_btn1, col_btn2, col_btn3 = st.columns(3)
+        col_btn1.button("Caliente", key="c_springer", use_container_width=True)
+        col_btn2.button("Winpot", key="w_springer", use_container_width=True)
+        col_btn3.button("Playdoit", key="p_springer", use_container_width=True)
+        
+        with st.expander("Ver Detalles Analíticos"):
+            d1, d2, d3, d4 = st.columns(4)
+            d1.metric("Racha", "2-1-1-4-1")
+            d2.metric("Momio", "1.65")
+            d3.metric("Sug. Kelly", "$12.50")
+            d4.metric("Retorno", "$20.62")
+
+    # Simulación de un jugador EV-
+    with st.container(border=True):
+        st.markdown("#### Vladimir Guerrero Jr. (TOR) | Hits > 0.5")
+        st.markdown("**❌ EV: -9.6%** | 📊 Prob: 42.0%")
+        
+        col_btn4, col_btn5, col_btn6 = st.columns(3)
+        col_btn4.button("Caliente", key="c_vlad", use_container_width=True, disabled=True)
+        col_btn5.button("Winpot", key="w_vlad", use_container_width=True, disabled=True)
+        col_btn6.button("Playdoit", key="p_vlad", use_container_width=True, disabled=True)
+        
+        with st.expander("Ver Detalles Analíticos"):
+            d1, d2, d3, d4 = st.columns(4)
+            d1.metric("Racha", "1-0-1-0-0")
+            d2.metric("Momio", "2.15")
+            d3.metric("Sug. Kelly", "$0.00")
+            d4.metric("Retorno", "$0.00")
+
+# ------------------------------------------------------------------------------
+# TAB 2: OPCIÓN B (Tabla con Scroll Horizontal)
+# ------------------------------------------------------------------------------
+with tab_bases:
+    st.subheader("Proyección de Bases (Formato Tabla Nativa)")
+    st.write("Deslice hacia la izquierda o derecha en su celular para ver todas las columnas.")
     
-    with st.container():
-        st.subheader("🔴 Atlanta Braves - Visitante | ❌ Prob: 35%") 
-        st.markdown("**🎯 Proyección Ofensiva Colectiva**")
-        vis1, vis2, vis3, vis4, vis5, vis6 = st.columns([1.5, 1, 1, 1, 1, 1])
-        vis1.write("**Mercado**"); vis2.write("**Racha Eq.**"); vis3.write("**Línea**"); vis4.write("**Momio**"); vis5.write("**Px Real**"); vis6.write("**EV**")
-        vis1.write("Total de Hits"); vis2.write("5-4-6-4-5"); vis3.write("+7.5"); vis4.write("-115"); vis5.write("52%"); vis6.write("✅ +1.2%")
-        vis1.write("Total Carreras"); vis2.write("2-1-4-1-3"); vis3.write("+3.5"); vis4.write("-105"); vis5.write("48%"); vis6.write("❌ -3.4%")
-
-    st.markdown("---")
-
-    # ----------------------------------------------------------------------
-    # TABS: MESA DE EJECUCIÓN POR MERCADOS
-    # ----------------------------------------------------------------------
-    st.header("🎯 Radar de Jugadores (Filtrado)")
+    # Simulación de datos
+    datos_tabla = {
+        "Jugador": ["Alec Burleson", "Ernie Clement", "Jordan Walker"],
+        "Mercado": ["Bases > 1.5", "Bases > 0.5", "Bases > 1.5"],
+        "EV": ["+12.1%", "-5.4%", "+8.3%"],
+        "Prob (Px)": ["58.5%", "45.2%", "52.1%"],
+        "Racha": ["2-1-1-1-0", "1-0-1-1-1", "2-3-0-1-0"],
+        "Momio": ["1.95", "2.10", "2.05"],
+        "Sug. Kelly": ["$15.00", "$0.00", "$10.50"]
+    }
+    df_bases = pd.DataFrame(datos_tabla)
     
-    tab_hits, tab_bases, tab_hr = st.tabs(["⚾ 1. HITS", "🏃 2. BASES TOTALES", "🚀 3. HOME RUNS"])
+    # st.dataframe activa automáticamente el scroll horizontal en móviles
+    st.dataframe(df_bases, use_container_width=False, hide_index=True)
 
-    # Función para renderizar encabezados de tabla
-    def renderizar_encabezados(mostrar_input_manual=False):
-        if mostrar_input_manual:
-            c1, c2, c3, c4, c5, c6, c7 = st.columns([2, 1.5, 1, 1, 1, 1, 1.5])
-            c1.write("**Jugador (Equipo)**")
-            c2.write("**Ingreso Momio (Américo)**")
-            c3.write("**Nueva Px**")
-            c4.write("**Nuevo EV**")
-            c5.write("**Sug. Kelly**")
-            c6.write("**Retorno**")
-            c7.write("**Ejecutar Orden**")
-            return c1, c2, c3, c4, c5, c6, c7
-        else:
-            c1, c2, c3, c4, c5, c6, c7, c8, c9 = st.columns([1.5, 1, 1, 1, 1, 1, 1, 1, 1])
-            c1.write("**Jugador**"); c2.write("**EV**"); c3.write("**Px**"); c4.write("**Racha**")
-            c5.write("**Momio**"); c6.write("**Sug. Kelly**"); c7.write("**Playdoit**"); c8.write("**Winpot**"); c9.write("**Caliente**")
-            return c1, c2, c3, c4, c5, c6, c7, c8, c9
-
-    # TAB 1: HITS (Estructura de tabla con botones multicartera)
-    with tab_hits:
-        c1, c2, c3, c4, c5, c6, c7, c8, c9 = renderizar_encabezados()
-        st.markdown("---")
+# ------------------------------------------------------------------------------
+# TAB 3: CALCULADORA MANUAL DE HOME RUNS (MODO HÍBRIDO)
+# ------------------------------------------------------------------------------
+with tab_hr:
+    st.subheader("Calculadora Híbrida en RAM (Home Runs)")
+    st.write("Ingrese el momio americano (ej. +350) para ejecutar el modelo matemático en tiempo real.")
+    
+    col_input1, col_input2 = st.columns([2, 1])
+    
+    with col_input1:
+        jugador_hr = st.selectbox("Seleccione Bateador:", ["George Springer (TOR)", "Vladimir Guerrero Jr. (TOR)", "Nolan Arenado (STL)"])
         
-        # Fila simulada de jugador 1
-        c1.write("Tommy White")
-        c2.write("✅ 12.5%")
-        c3.write("74.4%")
-        c4.write("1-0-2-0-4")
-        c5.write("1.43")
-        c6.write("$125.00")
-        c7.button("PD $", key="pd_h1", help="Apostar con Playdoit")
-        c8.button("WP $", key="wp_h1", help="Apostar con Winpot")
-        c9.button("CA $", key="ca_h1", help="Apostar con Caliente")
+        # Simulación: El sistema ya tiene la Px pura calculada por el modelo (60%)
+        prob_modelo_pura = 0.18 # 18% de probabilidad de HR según nuestra BD
+        st.caption(f"Racha HR: 0-1-0-0-0 | Probabilidad Base Modelo: {prob_modelo_pura*100:.1f}%")
         
-        # Fila simulada de jugador 2
-        st.write("") # Espaciador
-        c1.write("CJ Abrams")
-        c2.write("❌ -2.1%")
-        c3.write("48.4%")
-        c4.write("0-0-1-0-1")
-        c5.write("1.85")
-        c6.write("$0.00")
-        c7.button("PD $", key="pd_h2", disabled=True)
-        c8.button("WP $", key="wp_h2", disabled=True)
-        c9.button("CA $", key="ca_h2", disabled=True)
-
-    # TAB 2: BASES TOTALES
-    with tab_bases:
-        c1, c2, c3, c4, c5, c6, c7, c8, c9 = renderizar_encabezados()
-        st.markdown("---")
+    with col_input2:
+        momio_americano = st.text_input("Momio Americano:", placeholder="Ej: +450 o -110")
         
-        # Fila simulada
-        c1.write("Lane Thomas")
-        c2.write("✅ 8.4%")
-        c3.write("55.0%")
-        c4.write("2-1-3-0-2")
-        c5.write("1.85")
-        c6.write("$210.00")
-        c7.button("PD $", key="pd_b1")
-        c8.button("WP $", key="wp_b1")
-        c9.button("CA $", key="ca_b1")
-
-    # TAB 3: HOME RUNS (INYECCIÓN MANUAL Y CÁLCULO EN RAM)
-    with tab_hr:
-        st.info("Líneas de Home Runs no publicadas. Ingrese el momio americano (ej. +350) para ejecutar el modelo híbrido 60/40 en tiempo real.")
-        c1, c2, c3, c4, c5, c6, c7 = renderizar_encabezados(mostrar_input_manual=True)
-        st.markdown("---")
-        
-        # Datos base puros del modelo matemático (El 60% que ya calculó el motor)
-        jugador_hr = "Marcell Ozuna (ATL)"
-        px_modelo_puro = 0.285  # 28.5% probabilidad matemática cruda
-        
-        c1.write(f"{jugador_hr}\n\n*(Px Base: {px_modelo_puro*100:.1f}%)*")
-        
-        # Ingreso manual del usuario
-        momio_manual = c2.number_input("Momio Americano:", value=0, step=50, key="in_hr_ozuna")
-        
-        if momio_manual != 0:
-            # 1. Convertir momio a decimal y sacar la prob del casino (El 40%)
-            cuota_dec = americano_a_decimal(momio_manual)
-            prob_casino = 1.0 / cuota_dec if cuota_dec > 0 else 0
+    if momio_americano:
+        try:
+            # Conversión Matemática: Americano a Decimal
+            momio_num = float(momio_americano)
+            if momio_num > 0:
+                momio_decimal = (momio_num / 100) + 1
+            else:
+                momio_decimal = (100 / abs(momio_num)) + 1
+                
+            # Probabilidad Implícita del Casino (40%)
+            prob_casino = 1 / momio_decimal
             
-            # 2. Mezcla Híbrida
-            nueva_px = (px_modelo_puro * 0.60) + (prob_casino * 0.40)
+            # Fusión Híbrida 60/40
+            px_hibrida = (prob_modelo_pura * 0.60) + (prob_casino * 0.40)
             
-            # 3. Nuevo EV y Kelly
-            nuevo_ev = (nueva_px * cuota_dec) - 1.0
-            nuevo_kelly = calcular_kelly(nueva_px, cuota_dec, capital_neto)
-            retorno_potencial = nuevo_kelly * cuota_dec
+            # Cálculo de EV
+            ventaja_ev = (px_hibrida * momio_decimal) - 1
             
-            color_ev = "green" if nuevo_ev > 0 else "red"
-            icono_ev = "✅" if nuevo_ev > 0 else "❌"
+            # Fórmula de Kelly (Reducida al 25% por gestión de riesgo)
+            b = momio_decimal - 1.0
+            q = 1.0 - px_hibrida
+            kelly_puro = ((px_hibrida * b) - q) / b
+            kelly_sugerido = (capital_total * kelly_puro * 0.25) if kelly_puro > 0 else 0.0
             
-            # Impresión de resultados dinámicos
-            c3.markdown(f"**{nueva_px*100:.1f}%**")
-            c4.markdown(f"<span style='color:{color_ev}'>{icono_ev} {nuevo_ev*100:+.1f}%</span>", unsafe_allow_html=True)
-            c5.write(f"${nuevo_kelly:,.2f}")
-            c6.write(f"${retorno_potencial:,.2f}")
+            # Despliegue de Resultados Rápidos
+            st.markdown("---")
+            r1, r2, r3, r4 = st.columns(4)
+            r1.metric("Px Híbrida", f"{px_hibrida*100:.1f}%")
+            r2.metric("Momio Decimal", f"{momio_decimal:.2f}")
+            r3.metric("Ventaja (EV)", f"{ventaja_ev*100:+.1f}%", delta="EV+" if ventaja_ev > 0 else "-EV", delta_color="normal" if ventaja_ev > 0 else "inverse")
+            r4.metric("Kelly Sugerido", f"${kelly_sugerido:,.2f}")
             
-            # Botones de ejecución
-            with c7:
-                if nuevo_ev > 0:
-                    st.button("Caliente", key="btn_hr_cal")
-                    st.button("Winpot", key="btn_hr_win")
-                else:
-                    st.button("Descartado", disabled=True, key="btn_hr_fail")
-        else:
-            c3.write("--")
-            c4.write("--")
-            c5.write("--")
-            c6.write("--")
-            c7.write("Esperando momio...")
+            if ventaja_ev > 0:
+                st.success("¡Apuesta Rentable! Seleccione la cartera para registrar la operación:")
+                b1, b2, b3 = st.columns(3)
+                b1.button("Disparar en Caliente", use_container_width=True)
+                b2.button("Disparar en Winpot", use_container_width=True)
+                b3.button("Disparar en Playdoit", use_container_width=True)
+            else:
+                st.error("El momio ingresado no ofrece valor matemático suficiente para disparar.")
+                
+        except ValueError:
+            st.warning("Por favor ingrese un momio americano válido (solo números y signos + o -).")
