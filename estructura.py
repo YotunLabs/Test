@@ -80,7 +80,7 @@ with tab_hits:
     st.write("Diseño optimizado para celular. Los botones de acción rápida están siempre visibles.")
     
     # Simulación de un jugador EV+
-    with st.container(border=True, ✅ EV: +15.4%** | 🔥 Prob: 68.4% | George Springer (TOR) | Hits > 0.5""):
+    with st.container(border=True):
         st.markdown("#### George Springer (TOR) | Hits > 0.5")
         st.markdown("**✅ EV: +15.4%** | 🔥 Prob: 68.4%")
         
@@ -89,8 +89,8 @@ with tab_hits:
         col_btn1.button("Caliente", key="c_springer", use_container_width=True)
         col_btn2.button("Winpot", key="w_springer", use_container_width=True)
         col_btn3.button("Playdoit", key="p_springer", use_container_width=True)
-
-        with st.expander():
+        
+        with st.expander("Ver Detalles Analíticos"):
             d1, d2, d3, d4 = st.columns(4)
             d1.metric("Racha", "2-1-1-4-1")
             d2.metric("Momio", "1.65")
@@ -198,3 +198,4 @@ with tab_hr:
                 
         except ValueError:
             st.warning("Por favor ingrese un momio americano válido (solo números y signos + o -).")
+            
