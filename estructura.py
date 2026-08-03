@@ -346,3 +346,104 @@ elif menu == "Telemetría (Logs)":
     }
     df_logs = pd.DataFrame(data)
     st.dataframe(df_logs, use_container_width=True)
+
+import streamlit as st
+import pandas as pd
+
+st.set_page_config(page_title="Waals ERP", layout="wide", page_icon="🏭")
+
+# --- SIMULADOR DE BASE DE DATOS (En memoria) ---
+# En la versión final, esto se conectará a tu MySQL en Hostinger
+if 'db_productos' not in st.session_state:
+    st.session_state.db_productos = pd.DataFrame({
+        "SKU": ["PLY-POLO-FP", "TAR-PRES-100", "BORD-LOGO-01"],
+        "producto": ["Playera tipo Polo Fullprint", "Tarjetas de presentación", "Bordado de Logo (Pecho)"],
+        "url_imagen": ["/assets/polo.jpg", "/assets/tarjetas.jpg", "/assets/bordado.jpg"],
+        "descripcion": ["Sublimado, Poliéster. Tallas Ch, M, G, EG", "Impresión digital color, 100 piezas", "Bordado a 2 colores. 8 cm ancho"],
+        "costo_unitario": [340.00, 500.00, 40.00]
+    })
+
+if 'db_clientes' not in st.session_state:
+    # Agregamos algunos clientes base para el ejemplo
+    st.session_state.db_clientes = ["ENERGEN", "Fernando Guzman", "Grupo Scout 201 - Excalibur"]
+
+
+# --- NAVEGACIÓN ---
+tab1, tab2 = st.tabs(["📦 Base de Datos de Productos", "⚡ Centro de Cotizaciones"])
+
+
+# --- PESTAÑA 1: PRODUCTOS ---
+with tab1:
+    st.title("📦 Catálogo y Edición de Productos")
+    st.write("Da doble clic en cualquier celda para editar. Para agregar un nuevo producto, desplázate a la última fila vacía o usa el formulario inferior.")
+    
+    # 1. LA TABLA EDITABLE (El equivalente a tu Excel/Airtable)
+    # num_rows="dynamic" permite al usuario agregar o borrar filas con un clic
+    productos_editados = st.data_editor(
+        st.session_state.db_productos,
+        num_rows="dynamic",
+        use_container_width=True,
+        column_config={
+            "costo_unitario": st.column_config.NumberColumn(
+                "Costo Unitario ($)",
+                help="Costo de producción",
+                min_value=0.0,
+                step=1.0,
+                format="$ %.2f"
+            )
+        }
+    )
+    
+    st.button("💾 Guardar cambios en Base de Datos (MySQL)", type="primary")
+
+    # 2. FORMULARIO OPCIONAL PARA ALTA ESTRUCTURADA
+    with st.expander("➕ Alta detallada de Nuevo Producto"):
+        with st.form("form_nuevo_producto"):
+            col_a, col_b = st.columns(2)
+            nuevo_sku = col_a.text_input("SKU")
+            nuevo_prod = col_b.text_input("Nombre del Producto")
+            nueva_desc = st.text_area("Descripción (Telas, medidas, colores)")
+            nueva_url = col_a.text_input("URL de la Imagen (Mockup)")
+            nuevo_costo = col_b.number_input("Costo Unitario Base", min_value=0.0)
+            
+            if st.form_submit_button("Registrar Producto"):
+                st.success(f"Producto {nuevo_sku} registrado correctamente.")
+                # Aquí iría el código SQL: INSERT INTO Catalogo_Productos...
+
+
+# --- PESTAÑA 2: COTIZACIONES ---
+with tab2:
+    st.title("⚡ Generador de Cotizaciones")
+    
+    with st.container(border=True):
+        st.subheader("1. Selección de Cliente")
+        
+        c1, c2 = st.columns([3, 1])
+        with c1:
+            # Dropdown que lee los clientes existentes
+            cliente_seleccionado = st.selectbox("Buscar Cliente", st.session_state.db_clientes)
+        
+        with c2:
+            # Alta rápida sin salir de la cotización
+            with st.expander("➕ Nuevo Cliente"):
+                nuevo_cliente = st.text_input("Nombre de la Empresa / Persona")
+                if st.button("Agregar"):
+                    if nuevo_cliente:
+                        st.session_state.db_clientes.append(nuevo_cliente)
+                        st.rerun() # Recarga la pantalla para que aparezca en el selectbox
+        
+        st.divider()
+        st.subheader("2. Armado de la Cotización")
+        
+        # El selectbox lee la columna 'producto' del DataFrame que armamos en la pestaña 1
+        producto_seleccionado = st.selectbox("Seleccionar Producto", st.session_state.db_productos["producto"])
+        cantidad = st.number_input("Cantidad de piezas", min_value=1, value=10)
+        
+        # Búsqueda matemática del precio basada en la selección
+        fila_producto = st.session_state.db_productos[st.session_state.db_productos["producto"] == producto_seleccionado].iloc[0]
+        precio_unitario = fila_producto["costo_unitario"]
+        importe_total = precio_unitario * cantidad
+        
+        st.info(f"**Resumen:** {cantidad} piezas de {producto_seleccionado}. Total: **${importe_total:,.2f}**")
+        
+        st.button("Generar PDF", type="primary", use_container_width=True)
