@@ -10,7 +10,7 @@ st.set_page_config(page_title="Motor EV - Maqueta Móvil", layout="wide", initia
 # SIDEBAR: FINANZAS, METAS Y TELEMETRÍA
 # ==============================================================================
 st.sidebar.title("⚙️ Panel Operativo")
-        menu = st.sidebar.radio("Navegación:", [
+menu = st.sidebar.radio("Navegación:", [
             "En Vivo (Partidos)", 
             "Parlays (SGP)", 
             "Inicio (Top EV)", 
