@@ -163,251 +163,101 @@ with tab_hr:
         d4.metric("Retorno", "$20.62")
 
 
-import streamlit as st
-import pandas as pd
+st.header("🔥 Parlays de hoy")
+st.write("Esta es la descripción de la página. Aquí puede detallar el propósito del dashboard, instrucciones de uso o cualquier contexto relevante para el análisis.")
+
+st.markdown("---") # Línea divisoria horizontal
+
+st.subheader("I TOP 8 PARLAY HITS JUGADORES") #Aqui vamos calcular parlays de 3 o 4  con la mejor Prob y con EV positivo, el siguiente parlay será con los que tienen menor cantidad de prob, y el último parlay sea el soñado.
 
 # ==============================================================================
-# CONFIGURACIÓN GENERAL DE LA PÁGINA
+# VARIANTE 2: ENFOQUE EN MÉTRICAS (MÁS VISUAL Y MODERNO)
 # ==============================================================================
-st.set_page_config(
-    page_title="Motor EV - Maqueta UI", 
-    layout="wide", 
-    initial_sidebar_state="expanded"
-)
+with st.expander("Parlay 2 (Agresivo) | Cuota: 4.50 | Prob: 35.2%", expanded=False):
+    
+    # Dividimos las selecciones en columnas en lugar de lista hacia abajo
+    sel1, sel2 = st.columns(2)
+    sel1.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+    sel2.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
 
-# ==============================================================================
-# SIDEBAR (PANEL LATERAL)
-# ==============================================================================
-st.sidebar.title("⚙️ Panel de Control")
+        # Dividimos las selecciones en columnas en lugar de lista hacia abajo
+    sel3, sel4 = st.columns(2)
+    sel3.success("**Pick 1:** CJ Abrams (WSH) | Hits > 1.5 (Prob: 45%)")
+    sel4.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+    
+    st.markdown("---")
+    
+    # Usamos st.metric para números grandes y llamativos
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric(label="Inversión Sugerida", value="$25.00")
+    m2.metric(label="Retorno (Payout)", value="$112.50", delta="Rentable")
+    m3.metric(label="Ventaja (EV)", value="+18.5%", delta="EV Positivo", delta_color="normal")
+    
+    with m4:
+        st.write("")
+        st.button("Ejecutar Parlay 2", key="btn_v2", type="primary") # type="primary" lo pone de color rojo/destacado
 
-# 1. Navegación Principal
-menu = st.sidebar.radio(
-    "Navegación:",
-    [
-        "En Vivo (Partidos)", 
-        "Parlays (SGP)", 
-        "Inicio (Top EV)", 
-        "Historial", 
-        "Bankroll", 
-        "Telemetría (Logs)"
-    ]
-)
+st.markdown("---") # Línea divisoria horizontal
 
-st.sidebar.markdown("---")
-
-# 2. Resumen Financiero Rápido
-st.sidebar.subheader("💰 Finanzas")
-st.sidebar.metric(
-    label="Capital Neto Disponible", 
-    value="$15,450.00 MXN", 
-    delta="+ $450.00 Hoy"
-)
-
-st.sidebar.markdown("---")
-
-# 3. Panel Operativo (Business Intelligence)
-st.sidebar.subheader("🛠️ Estado del Sistema")
-
-# Barra de progreso simulando el consumo de The Odds API
-creditos_usados = 100
-creditos_totales = 500
-porcentaje_api = int((creditos_usados / creditos_totales) * 100)
-st.sidebar.progress(porcentaje_api, text=f"API Odds ({creditos_usados}/{creditos_totales})")
-
-# Indicadores de salud del VPS y Base de datos
-st.sidebar.info("VPS Hostinger: Activo 🟢")
-st.sidebar.success("MySQL Sync: Hace 2 horas 🔄")
+st.subheader("I TOP 8 PARLAY BASES JUGADORES") #Aqui vamos calcular parlays de 3 o 4  con la mejor Prob y con EV positivo, el siguiente parlay será con los que tienen menor cantidad de prob, y el último parlay sea el soñado.
 
 # ==============================================================================
-# CONTENIDO DE LAS SECCIONES (SIMULACIÓN)
+# VARIANTE 2: ENFOQUE EN MÉTRICAS (MÁS VISUAL Y MODERNO)
+# ==============================================================================
+with st.expander("Parlay 2 (Agresivo) | Cuota: 4.50 | Prob: 35.2%", expanded=False):
+    
+    # Dividimos las selecciones en columnas en lugar de lista hacia abajo
+    sel9, sel10 = st.columns(2)
+    sel9.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+    sel10.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+
+        # Dividimos las selecciones en columnas en lugar de lista hacia abajo
+    sel11, sel12 = st.columns(2)
+    sel11.success("**Pick 1:** CJ Abrams (WSH) | Hits > 1.5 (Prob: 45%)")
+    sel12.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+    
+    st.markdown("---")
+    
+    # Usamos st.metric para números grandes y llamativos
+    m9, m10, m11, m12 = st.columns(4)
+    m9.metric(label="Inversión Sugerida", value="$25.00")
+    m10.metric(label="Retorno (Payout)", value="$112.50", delta="Rentable")
+    m11.metric(label="Ventaja (EV)", value="+18.5%", delta="EV Positivo", delta_color="normal")
+    
+    with m12:
+        st.write("")
+        st.button("Ejecutar Parlay 2", key="btn_v3", type="primary") # type="primary" lo pone de color rojo/destacado
+
+st.markdown("---") # Línea divisoria horizontal
+
+st.subheader("I PARLAY POR PARTIDO")
+st.subheader("Menú desplegable")
+
+st.markdown("---")
+
+# ==============================================================================
+# PARLAY POR PARTIDO
 # ==============================================================================
 
-if menu == "En Vivo (Partidos)":
-    st.title("📊 Partidos de hoy")
-    st.write("Seleccione un encuentro para analizar las proyecciones algorítmicas con modelo híbrido (60% Poisson / 40% Casino).")
+with st.expander("TOP 2 Miami Marlins vs Phillies | Cuota: 4.50 | Prob: 35.2%", expanded=False): #Aqui vamos calcular parlays de 2 parlays con mejor prob, mezclando hits por equipo, hits por jugador, carreras, etc.
+    # Dividimos las selecciones en columnas en lugar de lista hacia abajo
+    sel5, sel6 = st.columns(2)
+    sel5.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+    sel6.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+
+        # Dividimos las selecciones en columnas en lugar de lista hacia abajo
+    sel7, sel8 = st.columns(2)
+    sel7.success("**Pick 1:** CJ Abrams (WSH) | Hits > 1.5 (Prob: 45%)")
+    sel8.success("**Pick 2:** Lane Thomas (WSH) | Bases > 1.5 (Prob: 50%)")
+    
     st.markdown("---")
     
-    # Simulación del selector
-    st.selectbox(
-        "Seleccione un partido:", 
-        ["Washington Nationals (L) vs Atlanta Braves (V) | ⭐ Relevante | 🕒 18:30"]
-    )
-    st.markdown("---")
+    # Usamos st.metric para números grandes y llamativos
+    m5, m6, m7, m8 = st.columns(4)
+    m5.metric(label="Inversión Sugerida", value="$25.00")
+    m6.metric(label="Retorno (Payout)", value="$112.50", delta="Rentable")
+    m7.metric(label="Ventaja (EV)", value="+18.5%", delta="EV Positivo", delta_color="normal")
     
-    # Simulación visual de los bloques
-    col1, col2 = st.columns(2)
-    with col1:
-        st.info("🔵 Contenedor: Estadísticas H2H y Totales del Equipo Local")
-    with col2:
-        st.error("🔴 Contenedor: Estadísticas H2H y Totales del Equipo Visitante")
-        
-    st.header("🎯 Radar de Jugadores")
-    st.success("Aquí se desplegarán los acordeones (expanders) con las proyecciones de Hits, Bases Totales y Home Runs de los bateadores.")
-
-elif menu == "Parlays (SGP)":
-    st.title("🔥 Parlays de hoy")
-    st.write("Combinaciones algorítmicas con Valor Esperado (EV) Positivo.")
-    st.markdown("---")
-    
-    st.subheader("I TOP 8 PARLAY HITS JUGADORES")
-    with st.expander("Parlay 1 (Hits - Agresivo) | Cuota: 4.50 | Prob: 35.2%", expanded=False):
-        st.write("Simulación de 4 picks globales de Hits cruzados de distintos partidos.")
-        
-    st.subheader("I TOP 8 PARLAY BASES JUGADORES")
-    with st.expander("Parlay 2 (Bases - Conservador) | Cuota: 3.10 | Prob: 42.1%", expanded=False):
-        st.write("Simulación de 4 picks globales de Bases Totales.")
-
-    st.subheader("I PARLAY POR PARTIDO (SGP)")
-    st.selectbox("Filtrar por partido:", ["Miami Marlins (L) vs Philadelphia Phillies (V)"])
-    st.info("Aquí aparecerá el parlay con el bono de correlación (+15% Prob) por pertenecer al mismo encuentro.")
-
-elif menu == "Inicio (Top EV)":
-    st.title("🏠 Radar General (Top Oportunidades)")
-    st.write("Las mejores oportunidades de todo el mercado ordenadas de mayor a menor probabilidad.")
-    st.markdown("---")
-    
-    # Simulación de lista Top EV
-    for i in range(1, 4):
-        st.success(f"**Pick #{i}:** Jugador X (Equipo Y) | Mercado > Línea | 🔥 Prob: 75% | ✅ EV+ 12%")
-
-elif menu == "Historial":
-    st.title("📖 Libro Mayor y Liquidación")
-    st.write("Auditoría de apuestas pasadas y liquidación de boletos abiertos.")
-    st.markdown("---")
-    
-    st.info("📊 Dataframe interactivo mostrando los últimos boletos jugados.")
-    
-    st.subheader("⚖️ Panel de Liquidación")
-    st.write("Seleccione un boleto pendiente para marcarlo como:")
-    c1, c2, c3 = st.columns(3)
-    c1.button("✅ Ganada")
-    c2.button("❌ Perdida")
-    c3.button("🔄 Push / Anulada")
-
-elif menu == "Bankroll":
-    st.title("💰 Tesorería y Flujo de Capital")
-    st.write("Gestión de ingresos, retiros y ajustes de auditoría del Bankroll.")
-    st.markdown("---")
-    
-    st.metric(label="Capital Neto Disponible", value="$15,450.00 MXN")
-    
-    with st.expander("⚙️ Ajuste Manual de Capital (Correcciones)"):
-        st.number_input("Establecer saldo exacto (MXN):", value=15450.00)
-        st.button("Aplicar Ajuste")
-        
-    st.info("📊 Dataframe mostrando el registro contable de cada peso apostado o ganado.")
-
-elif menu == "Telemetría (Logs)":
-    st.title("🖥️ Telemetría y Bitácora del Servidor")
-    st.write("Auditoría en tiempo real de las ejecuciones autónomas del VPS Linux (Cronjob a las 6:00 AM).")
-    st.markdown("---")
-    
-    # Simulación de tabla de logs
-    data = {
-        "Fecha/Hora": ["06:00:05", "06:01:22", "06:03:10"],
-        "Fase": ["Arranque", "Extracción MLB", "Análisis EV"],
-        "Mensaje": ["Iniciando Motor Maestro", "BD MLB actualizada con 1039 juegos", "Se inyectaron 416 registros EV+ a MySQL"]
-    }
-    df_logs = pd.DataFrame(data)
-    st.dataframe(df_logs, use_container_width=True)
-
-import streamlit as st
-import pandas as pd
-
-st.set_page_config(page_title="Waals ERP", layout="wide", page_icon="🏭")
-
-# --- SIMULADOR DE BASE DE DATOS (En memoria) ---
-# En la versión final, esto se conectará a tu MySQL en Hostinger
-if 'db_productos' not in st.session_state:
-    st.session_state.db_productos = pd.DataFrame({
-        "SKU": ["PLY-POLO-FP", "TAR-PRES-100", "BORD-LOGO-01"],
-        "producto": ["Playera tipo Polo Fullprint", "Tarjetas de presentación", "Bordado de Logo (Pecho)"],
-        "url_imagen": ["/assets/polo.jpg", "/assets/tarjetas.jpg", "/assets/bordado.jpg"],
-        "descripcion": ["Sublimado, Poliéster. Tallas Ch, M, G, EG", "Impresión digital color, 100 piezas", "Bordado a 2 colores. 8 cm ancho"],
-        "costo_unitario": [340.00, 500.00, 40.00]
-    })
-
-if 'db_clientes' not in st.session_state:
-    # Agregamos algunos clientes base para el ejemplo
-    st.session_state.db_clientes = ["ENERGEN", "Fernando Guzman", "Grupo Scout 201 - Excalibur"]
-
-
-# --- NAVEGACIÓN ---
-tab1, tab2 = st.tabs(["📦 Base de Datos de Productos", "⚡ Centro de Cotizaciones"])
-
-
-# --- PESTAÑA 1: PRODUCTOS ---
-with tab1:
-    st.title("📦 Catálogo y Edición de Productos")
-    st.write("Da doble clic en cualquier celda para editar. Para agregar un nuevo producto, desplázate a la última fila vacía o usa el formulario inferior.")
-    
-    # 1. LA TABLA EDITABLE (El equivalente a tu Excel/Airtable)
-    # num_rows="dynamic" permite al usuario agregar o borrar filas con un clic
-    productos_editados = st.data_editor(
-        st.session_state.db_productos,
-        num_rows="dynamic",
-        use_container_width=True,
-        column_config={
-            "costo_unitario": st.column_config.NumberColumn(
-                "Costo Unitario ($)",
-                help="Costo de producción",
-                min_value=0.0,
-                step=1.0,
-                format="$ %.2f"
-            )
-        }
-    )
-    
-    st.button("💾 Guardar cambios en Base de Datos (MySQL)", type="primary")
-
-    # 2. FORMULARIO OPCIONAL PARA ALTA ESTRUCTURADA
-    with st.expander("➕ Alta detallada de Nuevo Producto"):
-        with st.form("form_nuevo_producto"):
-            col_a, col_b = st.columns(2)
-            nuevo_sku = col_a.text_input("SKU")
-            nuevo_prod = col_b.text_input("Nombre del Producto")
-            nueva_desc = st.text_area("Descripción (Telas, medidas, colores)")
-            nueva_url = col_a.text_input("URL de la Imagen (Mockup)")
-            nuevo_costo = col_b.number_input("Costo Unitario Base", min_value=0.0)
-            
-            if st.form_submit_button("Registrar Producto"):
-                st.success(f"Producto {nuevo_sku} registrado correctamente.")
-                # Aquí iría el código SQL: INSERT INTO Catalogo_Productos...
-
-
-# --- PESTAÑA 2: COTIZACIONES ---
-with tab2:
-    st.title("⚡ Generador de Cotizaciones")
-    
-    with st.container(border=True):
-        st.subheader("1. Selección de Cliente")
-        
-        c1, c2 = st.columns([3, 1])
-        with c1:
-            # Dropdown que lee los clientes existentes
-            cliente_seleccionado = st.selectbox("Buscar Cliente", st.session_state.db_clientes)
-        
-        with c2:
-            # Alta rápida sin salir de la cotización
-            with st.expander("➕ Nuevo Cliente"):
-                nuevo_cliente = st.text_input("Nombre de la Empresa / Persona")
-                if st.button("Agregar"):
-                    if nuevo_cliente:
-                        st.session_state.db_clientes.append(nuevo_cliente)
-                        st.rerun() # Recarga la pantalla para que aparezca en el selectbox
-        
-        st.divider()
-        st.subheader("2. Armado de la Cotización")
-        
-        # El selectbox lee la columna 'producto' del DataFrame que armamos en la pestaña 1
-        producto_seleccionado = st.selectbox("Seleccionar Producto", st.session_state.db_productos["producto"])
-        cantidad = st.number_input("Cantidad de piezas", min_value=1, value=10)
-        
-        # Búsqueda matemática del precio basada en la selección
-        fila_producto = st.session_state.db_productos[st.session_state.db_productos["producto"] == producto_seleccionado].iloc[0]
-        precio_unitario = fila_producto["costo_unitario"]
-        importe_total = precio_unitario * cantidad
-        
-        st.info(f"**Resumen:** {cantidad} piezas de {producto_seleccionado}. Total: **${importe_total:,.2f}**")
-        
-        st.button("Generar PDF", type="primary", use_container_width=True)
+    with m8:
+        st.write("")
+        st.button("Ejecutar Parlay 2", key="btn_v4", type="primary") # type="primary" lo pone de color rojo/destacado
